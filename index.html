@@ -3867,26 +3867,28 @@
                 answer: 1,
                 solution:
                     "Công thức cần nhớ là " +
-                    "$d^2z=f_{xx}dx^2+2f_{xy}dxdy+f_{yy}dy^2$. " +
-                    "Số hạng hỗn hợp có hệ số 2."
+                    "$d^2z=f_{xx}dx^2+2f_{xy}dxdy+f_{yy}dy^2$. "
             },
 
             {
-                id: 10,
-                topic: "Vi phân",
-                type: "truefalse",
-                question:
-                    "Trong công thức vi phân cấp 2, số hạng hỗn hợp " +
-                    "luôn được viết là $2f_{xy}dxdy$ đối với hàm đủ trơn.",
-                options: [
-                    "Đúng",
-                    "Sai"
-                ],
-                answer: 0,
-                solution:
-                    "Đúng. Hai số hạng $f_{xy}dxdy$ và $f_{yx}dydx$ " +
-                    "được gộp thành $2f_{xy}dxdy$ khi $f_{xy}=f_{yx}$."
-            },
+    id: 10,
+    topic: "Vi phân",
+    type: "truefalse",
+    question:
+        "Cho $f(x,y)=x^2+3xy+y^2$. Khẳng định " +
+        "$d^2f=2dx^2+3dxdy+2dy^2$ là đúng hay sai?",
+    options: [
+        "Đúng",
+        "Sai"
+    ],
+    answer: 1,
+    solution:
+        "Ta có $f_{xx}=2$, $f_{xy}=3$, $f_{yy}=2$. " +
+        "Do đó\n" +
+        "$$d^2f=2dx^2+2\\cdot3dxdy+2dy^2"
+        +"=2dx^2+6dxdy+2dy^2.$$ "
+        + "Đề bài ghi $3dxdy$ nên phát biểu là sai."
+},
 
             {
                 id: 11,
@@ -3908,40 +3910,50 @@
             },
 
             {
-                id: 12,
-                topic: "Cực trị",
-                type: "choice",
-                question:
-                    "Tại điểm dừng, nếu $D>0$ và $f_{xx}>0$ thì điểm đó là:",
-                options: [
-                    "Điểm cực đại",
-                    "Điểm cực tiểu",
-                    "Điểm yên ngựa",
-                    "Chưa thể kết luận trong mọi trường hợp"
-                ],
-                answer: 1,
-                solution:
-                    "Tiêu chuẩn Hessian: $D>0$, $f_{xx}>0$ " +
-                    "thì hàm đạt cực tiểu tại điểm dừng."
-            },
+    id: 12,
+    topic: "Cực trị",
+    type: "choice",
+    question:
+        "Cho $f(x,y)=x^2+2y^2-4x-8y$. Điểm cực tiểu của hàm số là:",
+    options: [
+        "$(2;2)$",
+        "$(2;1)$",
+        "$(1;2)$",
+        "$(0;0)$"
+    ],
+    answer: 0,
+    solution:
+        "Ta có\n" +
+        "$$f_x=2x-4=0\\Rightarrow x=2,$$\n" +
+        "$$f_y=4y-8=0\\Rightarrow y=2.$$" +
+        "Hơn nữa $f_{xx}=2>0$, $f_{yy}=4>0$, $f_{xy}=0$ nên\n" +
+        "$$D=f_{xx}f_{yy}-f_{xy}^2=2\\cdot4-0=8>0.$$" +
+        "Vì $D>0$ và $f_{xx}>0$ nên $(2;2)$ là điểm cực tiểu."
+},
 
             {
-                id: 13,
-                topic: "Cực trị",
-                type: "choice",
-                question:
-                    "Tại điểm dừng, nếu $D<0$ thì điểm đó là:",
-                options: [
-                    "Điểm cực đại",
-                    "Điểm cực tiểu",
-                    "Điểm yên ngựa",
-                    "Điểm cực trị không xác định"
-                ],
-                answer: 2,
-                solution:
-                    "Nếu $D<0$ thì điểm dừng là điểm yên ngựa, " +
-                    "không phải điểm cực trị."
-            },
+    id: 13,
+    topic: "Cực trị",
+    type: "choice",
+    question:
+        "Cho $f(x,y)=x^2-y^2+2x-4y$. Điểm dừng của hàm số là:",
+    options: [
+        "$(-1;2)$ và là điểm cực tiểu",
+        "$(-1;-2)$ và là điểm yên ngựa",
+        "$(1;-2)$ và là điểm cực đại",
+        "$(-1;2)$ và là điểm yên ngựa"
+    ],
+    answer: 3,
+    solution:
+        "Ta có\n" +
+        "$$f_x=2x+2=0\\Rightarrow x=-1,$$\n" +
+        "$$f_y=-2y-4=0\\Rightarrow y=-2.$$" +
+        "Do đó điểm dừng là $(-1;-2)$. Tiếp theo,\n" +
+        "$$f_{xx}=2,\\quad f_{yy}=-2,\\quad f_{xy}=0.$$" +
+        "Suy ra\n" +
+        "$$D=f_{xx}f_{yy}-f_{xy}^2=2\\cdot(-2)-0=-4<0.$$" +
+        "Vì $D<0$ nên $(-1;-2)$ là điểm yên ngựa."
+},
 
             {
                 id: 14,
