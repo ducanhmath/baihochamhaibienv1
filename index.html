@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<!--
+    ============================================================
+    BÀI HỌC ĐỘC LẬP: ĐẠO HÀM – VI PHÂN HÀM HAI BIẾN
+    Tác giả: Giảng viên Nguyễn Đức Ánh
+
+    Cấu trúc chính:
+    1. Cấu hình MathJax
+    2. Giao diện và bố cục responsive
+    3. Nội dung kiến thức trọng tâm
+    4. Ví dụ và lời giải
+    5. Bài tập tương tác, chấm điểm tự động
+    6. Tiện ích truy cập và lưu tiến độ
+    ============================================================
+-->
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +31,9 @@
 
     <title>Đạo hàm – Vi phân hàm hai biến | Nguyễn Đức Ánh</title>
 
-    <!-- MathJax -->
+    <!-- =========================================================
+         CẤU HÌNH MATHJAX
+    ========================================================== -->
     <script>
         window.MathJax = {
             tex: {
@@ -2376,7 +2392,7 @@
                         </div>
 
                         <div class="orbit-item one">
-                            \(f_x,\ f_y\)
+                            \(f'_x,\ f'_y\)
                         </div>
 
                         <div class="orbit-item two">
@@ -2384,7 +2400,7 @@
                         </div>
 
                         <div class="orbit-item three">
-                            \(D=f_{xx}f_{yy}-f_{xy}^2\)
+                            \(D=f^{\prime\prime}_{xx}f^{\prime\prime}_{yy}-\left(f^{\prime\prime}_{xy}\right)^2\)
                         </div>
 
                         <div class="orbit-item four">
@@ -2424,15 +2440,15 @@
                         <h3>Đạo hàm riêng cấp 1</h3>
 
                         <p>
-                            Tính \(f_x\), \(f_y\) bằng cách xem biến
+                            Tính \(f'_x\), \(f'_y\) bằng cách xem biến
                             còn lại là hằng số.
                         </p>
 
                         <div class="formula-box">
                             \[
-                                f_x=\frac{\partial f}{\partial x},
+                                f'_x=\frac{\partial f}{\partial x},
                                 \qquad
-                                f_y=\frac{\partial f}{\partial y}
+                                f'_y=\frac{\partial f}{\partial y}
                             \]
                         </div>
                     </article>
@@ -2441,16 +2457,16 @@
                         <h3>Đạo hàm riêng cấp 2</h3>
 
                         <p>
-                            Tính các đạo hàm \(f_{xx}\), \(f_{xy}\),
-                            \(f_{yx}\), \(f_{yy}\).
+                            Tính các đạo hàm \(f''_{xx}\), \(f''_{xy}\),
+                            \(f''_{yx}\), \(f''_{yy}\).
                         </p>
 
                         <div class="formula-box blue">
                             \[
-                                f_{xy}
+                                f''_{xy}
                                 =
                                 \frac{\partial}{\partial y}
-                                \left(f_x\right)
+                                \left(f'_x\right)
                             \]
                         </div>
                     </article>
@@ -2465,7 +2481,7 @@
 
                         <div class="formula-box orange">
                             \[
-                                dz=f_x\,dx+f_y\,dy
+                                dz=f'_x\,dx+f'_y\,dy
                             \]
                         </div>
                     </article>
@@ -2480,7 +2496,7 @@
 
                         <div class="formula-box purple">
                             \[
-                                D=f_{xx}f_{yy}-f_{xy}^{\,2}
+                                D=f^{\prime\prime}_{xx}f^{\prime\prime}_{yy}-\left(f^{\prime\prime}_{xy}\right)^2 = AC - B^2 
                             \]
                         </div>
                     </article>
@@ -2517,7 +2533,7 @@
                             <tr>
                                 <td>Đạo hàm riêng cấp 1</td>
                                 <td>
-                                    \(f_x,\ f_y\)
+                                    \(f'_x,\ f'_y\)
                                 </td>
                                 <td>
                                     Giữ cố định một biến.
@@ -2527,7 +2543,7 @@
                             <tr>
                                 <td>Đạo hàm riêng cấp 2</td>
                                 <td>
-                                    \(f_{xx},f_{xy},f_{yx},f_{yy}\)
+                                    \(f''_{xx},f''_{xy},f''_{yx},f''_{yy}\)
                                 </td>
                                 <td>
                                     Tiếp tục đạo hàm từ cấp 1.
@@ -2537,7 +2553,7 @@
                             <tr>
                                 <td>Vi phân cấp 1</td>
                                 <td>
-                                    \(dz=f_xdx+f_ydy\)
+                                    \(dz=f'_xdx+f'_ydy\)
                                 </td>
                                 <td>
                                     Ghép đạo hàm riêng với \(dx,dy\).
@@ -2547,7 +2563,7 @@
                             <tr>
                                 <td>Vi phân cấp 2</td>
                                 <td>
-                                    \(d^2z=f_{xx}dx^2+2f_{xy}dxdy+f_{yy}dy^2\)
+                                    \(d^2z=f''_{xx}dx^2+2f''_{xy}dxdy+f''_{yy}dy^2\)
                                 </td>
                                 <td>
                                     Chú ý hệ số \(2\) ở số hạng hỗn hợp.
@@ -2557,7 +2573,7 @@
                             <tr>
                                 <td>Cực trị tự do</td>
                                 <td>
-                                    \(f_x=f_y=0\), xét \(D\)
+                                    \(f'_x=f'_y=0\), xét \(D\)
                                 </td>
                                 <td>
                                     Tìm điểm dừng rồi phân loại.
@@ -2597,11 +2613,11 @@
 
                 <div class="formula-box">
                     \[
-                        f_x(x,y)
+                        f'_x(x,y)
                         =
                         \frac{\partial f}{\partial x},
                         \qquad
-                        f_y(x,y)
+                        f'_y(x,y)
                         =
                         \frac{\partial f}{\partial y}
                     \]
@@ -2619,8 +2635,8 @@
                             <strong>Xác định biến cần đạo hàm.</strong>
 
                             <p>
-                                Tính \(f_x\) thì đạo hàm theo \(x\);
-                                tính \(f_y\) thì đạo hàm theo \(y\).
+                                Tính \(f'_x\) thì đạo hàm theo \(x\);
+                                tính \(f'_y\) thì đạo hàm theo \(y\).
                             </p>
                         </div>
                     </li>
@@ -2634,7 +2650,7 @@
                             </strong>
 
                             <p>
-                                Ví dụ, khi tính \(f_x\), biểu thức
+                                Ví dụ, khi tính \(f'_x\), biểu thức
                                 \(y^2\) được xem như một hằng số.
                             </p>
                         </div>
@@ -2672,7 +2688,7 @@
                         \[
                             f(x,y)=x^3y+2xy^2-5y.
                         \]
-                        Tính \(f_x\) và \(f_y\).
+                        Tính \(f'_x\) và \(f'_y\).
                     </p>
 
                     <button
@@ -2694,7 +2710,7 @@
                         </p>
 
                         \[
-                            f_x=3x^2y+2y^2.
+                            f'_x=3x^2y+2y^2.
                         \]
 
                         <p>
@@ -2703,7 +2719,7 @@
                         </p>
 
                         \[
-                            f_y=x^3+4xy-5.
+                            f'_y=x^3+4xy-5.
                         \]
                     </div>
                 </article>
@@ -2725,7 +2741,7 @@
                             f(x,y)=e^{xy}+\ln(x+y),
                             \qquad x+y>0.
                         \]
-                        Tính \(f_x\), \(f_y\).
+                        Tính \(f'_x\), \(f'_y\).
                     </p>
 
                     <button
@@ -2742,7 +2758,7 @@
                         id="solution-2"
                     >
                         \[
-                            f_x
+                            f'_x
                             =
                             y e^{xy}
                             +
@@ -2750,7 +2766,7 @@
                         \]
 
                         \[
-                            f_y
+                            f'_y
                             =
                             x e^{xy}
                             +
@@ -2769,7 +2785,7 @@
 
                         <p>
                             Trong \(f(x,y)=x^2y^3\), ta có
-                            \(f_x=2xy^3\) và \(f_y=3x^2y^2\).
+                            \(f'_x=2xy^3\) và \(f'_y=3x^2y^2\).
                             Biến không được chọn vẫn xuất hiện trong
                             kết quả như một hệ số.
                         </p>
@@ -2810,15 +2826,15 @@
 
                         <div class="formula-box">
                             \[
-                                f_{xx}
+                                f''_{xx}
                                 =
                                 \frac{\partial}{\partial x}
-                                \left(f_x\right),
+                                \left(f'_x\right),
                                 \qquad
-                                f_{yy}
+                                f''_{yy}
                                 =
                                 \frac{\partial}{\partial y}
-                                \left(f_y\right)
+                                \left(f'_y\right)
                             \]
                         </div>
                     </article>
@@ -2828,15 +2844,15 @@
 
                         <div class="formula-box blue">
                             \[
-                                f_{xy}
+                                f''_{xy}
                                 =
                                 \frac{\partial}{\partial y}
-                                \left(f_x\right),
+                                \left(f'_x\right),
                                 \qquad
-                                f_{yx}
+                                f''_{yx}
                                 =
                                 \frac{\partial}{\partial x}
-                                \left(f_y\right)
+                                \left(f'_y\right)
                             \]
                         </div>
                     </article>
@@ -2854,7 +2870,7 @@
                             Với các hàm đủ trơn thường gặp trong bài
                             tập, ta có
                             \[
-                                f_{xy}=f_{yx}.
+                                f''_{xy}=f''_{yx}.
                             \]
                             Tuy nhiên, vẫn nên tính đúng theo thứ tự
                             ký hiệu để tránh nhầm lẫn.
@@ -2897,27 +2913,27 @@
                         <p>Trước hết:</p>
 
                         \[
-                            f_x=3x^2y^2+4xy,
+                            f'_x=3x^2y^2+4xy,
                             \qquad
-                            f_y=2x^3y+2x^2-8y.
+                            f'_y=2x^3y+2x^2-8y.
                         \]
 
                         <p>Tiếp tục đạo hàm:</p>
 
                         \[
-                            f_{xx}=6xy^2+4y,
+                            f''_{xx}=6xy^2+4y,
                         \]
 
                         \[
-                            f_{xy}=6x^2y+4x,
+                            f''_{xy}=6x^2y+4x,
                         \]
 
                         \[
-                            f_{yx}=6x^2y+4x,
+                            f''_{yx}=6x^2y+4x,
                         \]
 
                         \[
-                            f_{yy}=2x^3-8.
+                            f''_{yy}=2x^3-8.
                         \]
                     </div>
                 </article>
@@ -2952,9 +2968,9 @@
                         \boxed{
                             dz
                             =
-                            f_x(x,y)\,dx
+                            f'_x(x,y)\,dx
                             +
-                            f_y(x,y)\,dy
+                            f'_y(x,y)\,dy
                         }
                     \]
                 </div>
@@ -2968,7 +2984,7 @@
                         <span class="step-number">1</span>
 
                         <div class="step-content">
-                            <strong>Tính \(f_x\) và \(f_y\).</strong>
+                            <strong>Tính \(f'_x\) và \(f'_y\).</strong>
 
                             <p>
                                 Đây là bước quan trọng nhất.
@@ -2981,11 +2997,11 @@
 
                         <div class="step-content">
                             <strong>
-                                Nhân \(f_x\) với \(dx\).
+                                Nhân \(f'_x\) với \(dx\).
                             </strong>
 
                             <p>
-                                Thu được số hạng \(f_xdx\).
+                                Thu được số hạng \(f'_xdx\).
                             </p>
                         </div>
                     </li>
@@ -2995,11 +3011,11 @@
 
                         <div class="step-content">
                             <strong>
-                                Nhân \(f_y\) với \(dy\) rồi cộng lại.
+                                Nhân \(f'_y\) với \(dy\) rồi cộng lại.
                             </strong>
 
                             <p>
-                                Thu được \(dz=f_xdx+f_ydy\).
+                                Thu được \(dz=f'_xdx+f'_ydy\).
                             </p>
                         </div>
                     </li>
@@ -3038,13 +3054,13 @@
                         id="solution-4"
                     >
                         \[
-                            f_x
+                            f'_x
                             =
                             2xy+y\cos(xy),
                         \]
 
                         \[
-                            f_y
+                            f'_y
                             =
                             x^2+x\cos(xy).
                         \]
@@ -3078,7 +3094,7 @@
                                 \approx
                                 dz
                                 =
-                                f_x\Delta x+f_y\Delta y.
+                                f'_x\Delta x+f'_y\Delta y.
                             \]
                             Đây là cách ước lượng nhanh độ thay đổi
                             của hàm số.
@@ -3116,11 +3132,11 @@
                         \boxed{
                             d^2z
                             =
-                            f_{xx}\,dx^2
+                            f''_{xx}\,dx^2
                             +
-                            2f_{xy}\,dx\,dy
+                            2f''_{xy}\,dx\,dy
                             +
-                            f_{yy}\,dy^2
+                            f''_{yy}\,dy^2
                         }
                     \]
                 </div>
@@ -3136,7 +3152,7 @@
                         <p>
                             Số hạng hỗn hợp là
                             \[
-                                2f_{xy}\,dx\,dy.
+                                2f''_{xy}\,dx\,dy.
                             \]
                             Không được quên hệ số \(2\).
                         </p>
@@ -3178,15 +3194,15 @@
                         <p>Các đạo hàm riêng cấp 2:</p>
 
                         \[
-                            f_{xx}=6x+4y,
+                            f''_{xx}=6x+4y,
                         \]
 
                         \[
-                            f_{xy}=4x+2y,
+                            f''_{xy}=4x+2y,
                         \]
 
                         \[
-                            f_{yy}=2x+6y.
+                            f''_{yy}=2x+6y.
                         \]
 
                         Vì vậy
@@ -3237,8 +3253,8 @@
                 <div class="formula-box">
                     \[
                         \begin{cases}
-                            f_x(x,y)=0,\\
-                            f_y(x,y)=0.
+                            f'_x(x,y)=0,\\
+                            f'_y(x,y)=0.
                         \end{cases}
                     \]
 
@@ -3254,12 +3270,12 @@
                     \[
                         D
                         =
-                        f_{xx}(x_0,y_0)
-                        f_{yy}(x_0,y_0)
+                        f''_{xx}(x_0,y_0)
+                        f''_{yy}(x_0,y_0)
                         -
                         \left[
-                            f_{xy}(x_0,y_0)
-                        \right]^2
+                            f''_{xy}(x_0,y_0)
+                        \right]^2 = AC - B^2
                     \]
                 </div>
 
@@ -3272,7 +3288,7 @@
                         <h3>Cực tiểu</h3>
 
                         <p>
-                            Nếu \(D>0\) và \(f_{xx}>0\).
+                            Nếu \(D>0\) và \(f''_{xx}>0\).
                         </p>
 
                         <p>
@@ -3284,7 +3300,7 @@
                         <h3>Cực đại</h3>
 
                         <p>
-                            Nếu \(D>0\) và \(f_{xx}<0\).
+                            Nếu \(D>0\) và \(f''_{xx}<0\).
                         </p>
 
                         <p>
@@ -3355,9 +3371,9 @@
                         <p>Tìm điểm dừng:</p>
 
                         \[
-                            f_x=2x-4,
+                            f'_x=2x-4,
                             \qquad
-                            f_y=2y+6.
+                            f'_y=2y+6.
                         \]
 
                         \[
@@ -3372,17 +3388,17 @@
                         <p>Các đạo hàm riêng cấp 2:</p>
 
                         \[
-                            f_{xx}=2,
+                            f''_{xx}=2,
                             \qquad
-                            f_{yy}=2,
+                            f''_{yy}=2,
                             \qquad
-                            f_{xy}=0.
+                            f''_{xy}=0.
                         \]
 
                         \[
                             D=2\cdot 2-0^2=4>0,
                             \qquad
-                            f_{xx}=2>0.
+                            f''_{xx}=2>0.
                         \]
 
                         Do đó hàm đạt cực tiểu tại \((2,-3)\).
@@ -3431,19 +3447,19 @@
                         id="solution-7"
                     >
                         \[
-                            f_x=2x,
+                            f'_x=2x,
                             \qquad
-                            f_y=-2y.
+                            f'_y=-2y.
                         \]
 
                         Điểm dừng duy nhất là \((0,0)\).
 
                         \[
-                            f_{xx}=2,
+                            f''_{xx}=2,
                             \qquad
-                            f_{yy}=-2,
+                            f''_{yy}=-2,
                             \qquad
-                            f_{xy}=0.
+                            f''_{xy}=0.
                         \]
 
                         \[
@@ -3702,288 +3718,355 @@
         ========================================================= */
 
         const quizQuestions = [
-            {
-                id: 1,
-                topic: "Đạo hàm cấp 1",
-                type: "choice",
-                question:
-                    "Cho $f(x,y)=x^2y+3xy^2$. Đạo hàm riêng $f_x$ bằng:",
-                options: [
-                    "$2xy+3y^2$",
-                    "$x^2+6xy$",
-                    "$2x+6y$",
-                    "$2xy+6xy$"
-                ],
-                answer: 0,
-                solution:
-                    "Xem $y$ là hằng số: " +
-                    "$\\dfrac{\\partial}{\\partial x}(x^2y)=2xy$ " +
-                    "và " +
-                    "$\\dfrac{\\partial}{\\partial x}(3xy^2)=3y^2$. " +
-                    "Vậy $f_x=2xy+3y^2$."
-            },
+        // =========================================================
+        // 1. ĐẠO HÀM RIÊNG CẤP MỘT
+        // =========================================================
 
-            {
-                id: 2,
-                topic: "Đạo hàm cấp 1",
-                type: "choice",
-                question:
-                    "Cho $f(x,y)=x^2y+3xy^2$. Đạo hàm riêng $f_y$ bằng:",
-                options: [
-                    "$2xy+3y^2$",
-                    "$x^2+6xy$",
-                    "$2x^2+3xy$",
-                    "$x^2+3x$"
-                ],
-                answer: 1,
-                solution:
-                    "Xem $x$ là hằng số: " +
-                    "$\\dfrac{\\partial}{\\partial y}(x^2y)=x^2$ " +
-                    "và " +
-                    "$\\dfrac{\\partial}{\\partial y}(3xy^2)=6xy$. " +
-                    "Do đó $f_y=x^2+6xy$."
-            },
+        {
+            id: 1,
+            topic: "Đạo hàm cấp 1",
+            type: "choice",
+            question:
+                "Cho $f(x,y)=x^2y+3xy^2$. Đạo hàm riêng " +
+                "$f^{\\prime}_x$ bằng:",
+            options: [
+                "$2xy+3y^2$",
+                "$x^2+6xy$",
+                "$2x+6y$",
+                "$2xy+6xy$"
+            ],
+            answer: 0,
+            solution:
+                "Xem $y$ là hằng số: " +
+                "$\\dfrac{\\partial}{\\partial x}(x^2y)=2xy$ " +
+                "và " +
+                "$\\dfrac{\\partial}{\\partial x}(3xy^2)=3y^2$. " +
+                "Vậy $f^{\\prime}_x=2xy+3y^2$."
+        },
 
-            {
-                id: 3,
-                topic: "Đạo hàm cấp 1",
-                type: "choice",
-                question:
-                    "Với $f(x,y)=e^{xy}$, đạo hàm $f_x$ là:",
-                options: [
-                    "$xe^{xy}$",
-                    "$ye^{xy}$",
-                    "$e^x$",
-                    "$xye^{xy}$"
-                ],
-                answer: 1,
-                solution:
-                    "Dùng quy tắc hàm hợp: " +
-                    "$f_x=e^{xy}\\cdot\\dfrac{\\partial(xy)}{\\partial x}" +
-                    "=ye^{xy}$."
-            },
+        {
+            id: 2,
+            topic: "Đạo hàm cấp 1",
+            type: "choice",
+            question:
+                "Cho $f(x,y)=x^2y+3xy^2$. Đạo hàm riêng " +
+                "$f^{\\prime}_y$ bằng:",
+            options: [
+                "$2xy+3y^2$",
+                "$x^2+6xy$",
+                "$2x^2+3xy$",
+                "$x^2+3x$"
+            ],
+            answer: 1,
+            solution:
+                "Xem $x$ là hằng số: " +
+                "$\\dfrac{\\partial}{\\partial y}(x^2y)=x^2$ " +
+                "và " +
+                "$\\dfrac{\\partial}{\\partial y}(3xy^2)=6xy$. " +
+                "Do đó $f^{\\prime}_y=x^2+6xy$."
+        },
 
-            {
-                id: 4,
-                topic: "Đạo hàm cấp 1",
-                type: "truefalse",
-                question:
-                    "Cho $f(x,y)=\\sin(x+y)$. Khẳng định " +
-                    "$f_x=f_y=\\cos(x+y)$ là đúng hay sai?",
-                options: [
-                    "Đúng",
-                    "Sai"
-                ],
-                answer: 0,
-                solution:
-                    "Cả $x$ và $y$ đều có hệ số bằng 1 trong biểu thức $x+y$. " +
-                    "Do đó $f_x=f_y=\\cos(x+y)$."
-            },
+        {
+            id: 3,
+            topic: "Đạo hàm cấp 1",
+            type: "choice",
+            question:
+                "Với $f(x,y)=e^{xy}$, đạo hàm " +
+                "$f^{\\prime}_x$ là:",
+            options: [
+                "$xe^{xy}$",
+                "$ye^{xy}$",
+                "$e^x$",
+                "$xye^{xy}$"
+            ],
+            answer: 1,
+            solution:
+                "Dùng quy tắc hàm hợp: " +
+                "$f^{\\prime}_x=e^{xy}\\cdot" +
+                "\\dfrac{\\partial(xy)}{\\partial x}=ye^{xy}$."
+        },
 
-            {
-                id: 5,
-                topic: "Đạo hàm cấp 2",
-                type: "choice",
-                question:
-                    "Cho $f(x,y)=x^3y^2$. Đạo hàm $f_{xx}$ bằng:",
-                options: [
-                    "$3x^2y^2$",
-                    "$6xy^2$",
-                    "$6x^2y$",
-                    "$2x^3$"
-                ],
-                answer: 1,
-                solution:
-                    "$f_x=3x^2y^2$, tiếp tục đạo hàm theo $x$: " +
-                    "$f_{xx}=6xy^2$."
-            },
+        {
+            id: 4,
+            topic: "Đạo hàm cấp 1",
+            type: "truefalse",
+            question:
+                "Cho $f(x,y)=\\sin(x+y)$. Khẳng định " +
+                "$f^{\\prime}_x=f^{\\prime}_y=\\cos(x+y)$ " +
+                "là đúng hay sai?",
+            options: [
+                "Đúng",
+                "Sai"
+            ],
+            answer: 0,
+            solution:
+                "Cả $x$ và $y$ đều có hệ số bằng 1 trong biểu thức $x+y$. " +
+                "Do đó " +
+                "$f^{\\prime}_x=f^{\\prime}_y=\\cos(x+y)$."
+        },
 
-            {
-                id: 6,
-                topic: "Đạo hàm cấp 2",
-                type: "choice",
-                question:
-                    "Cho $f(x,y)=x^2y^3$. Đạo hàm hỗn hợp $f_{xy}$ bằng:",
-                options: [
-                    "$6xy^2$",
-                    "$2xy^3$",
-                    "$3x^2y^2$",
-                    "$6x^2y$"
-                ],
-                answer: 0,
-                solution:
-                    "$f_x=2xy^3$. Đạo hàm tiếp theo theo $y$: " +
-                    "$f_{xy}=6xy^2$."
-            },
+        // =========================================================
+        // 2. ĐẠO HÀM RIÊNG CẤP HAI
+        // =========================================================
 
-            {
-    id: 7,
-    topic: "Đạo hàm cấp 2",
-    type: "truefalse",
-    question:
-        "Cho $f(x,y)=x^2y^3$. Khẳng định " +
-        "$f_{xy}=6xy^2$ là đúng hay sai?",
-    options: [
-        "Đúng",
-        "Sai"
-    ],
-    answer: 0,
-    solution:
-        "Ta có $f_x=2xy^3$. Tiếp tục lấy đạo hàm theo $y$: " +
-        "$f_{xy}=\\dfrac{\\partial}{\\partial y}(2xy^3)=6xy^2$. " +
-        "Vì vậy khẳng định đã cho là đúng."
-},
+        {
+            id: 5,
+            topic: "Đạo hàm cấp 2",
+            type: "choice",
+            question:
+                "Cho $f(x,y)=x^3y^2$. Đạo hàm " +
+                "$f^{\\prime\\prime}_{xx}$ bằng:",
+            options: [
+                "$3x^2y^2$",
+                "$6xy^2$",
+                "$6x^2y$",
+                "$2x^3$"
+            ],
+            answer: 1,
+            solution:
+                "$f^{\\prime}_x=3x^2y^2$. " +
+                "Tiếp tục lấy đạo hàm theo $x$, ta được " +
+                "$f^{\\prime\\prime}_{xx}=6xy^2$."
+        },
 
-            {
-                id: 8,
-                topic: "Vi phân",
-                type: "choice",
-                question:
-                    "Cho $z=x^2+y^2$. Vi phân cấp 1 $dz$ là:",
-                options: [
-                    "$2x\\,dx+2y\\,dy$",
-                    "$x^2\\,dx+y^2\\,dy$",
-                    "$2x+2y$",
-                    "$2\\,dx+2\\,dy$"
-                ],
-                answer: 0,
-                solution:
-                    "$f_x=2x$, $f_y=2y$. Do đó " +
-                    "$dz=f_xdx+f_ydy=2x\\,dx+2y\\,dy$."
-            },
+        {
+            id: 6,
+            topic: "Đạo hàm cấp 2",
+            type: "choice",
+            question:
+                "Cho $f(x,y)=x^2y^3$. Đạo hàm hỗn hợp " +
+                "$f^{\\prime\\prime}_{xy}$ bằng:",
+            options: [
+                "$6xy^2$",
+                "$2xy^3$",
+                "$3x^2y^2$",
+                "$6x^2y$"
+            ],
+            answer: 0,
+            solution:
+                "$f^{\\prime}_x=2xy^3$. " +
+                "Tiếp tục lấy đạo hàm theo $y$, ta được " +
+                "$f^{\\prime\\prime}_{xy}=6xy^2$."
+        },
 
-            {
-                id: 9,
-                topic: "Vi phân",
-                type: "choice",
-                question:
-                    "Công thức đúng của vi phân cấp 2 là:",
-                options: [
-                    "$d^2z=f_{xx}dx^2+f_{xy}dxdy+f_{yy}dy^2$",
-                    "$d^2z=f_{xx}dx^2+2f_{xy}dxdy+f_{yy}dy^2$",
-                    "$d^2z=f_xdx+f_ydy$",
-                    "$d^2z=f_{xx}+f_{yy}$"
-                ],
-                answer: 1,
-                solution:
-                    "Công thức cần nhớ là " +
-                    "$d^2z=f_{xx}dx^2+2f_{xy}dxdy+f_{yy}dy^2$. "
-            },
+        {
+            id: 7,
+            topic: "Đạo hàm cấp 2",
+            type: "truefalse",
+            question:
+                "Cho $f(x,y)=x^2y^3$. Khẳng định " +
+                "$f^{\\prime\\prime}_{xy}=6xy^2$ là đúng hay sai?",
+            options: [
+                "Đúng",
+                "Sai"
+            ],
+            answer: 0,
+            solution:
+                "Ta có $f^{\\prime}_x=2xy^3$. " +
+                "Tiếp tục lấy đạo hàm theo $y$: " +
+                "$f^{\\prime\\prime}_{xy}=" +
+                "\\dfrac{\\partial}{\\partial y}(2xy^3)=6xy^2$. " +
+                "Vì vậy khẳng định đã cho là đúng."
+        },
 
-            {
-    id: 10,
-    topic: "Vi phân",
-    type: "truefalse",
-    question:
-        "Cho $f(x,y)=x^2+3xy+y^2$. Khẳng định " +
-        "$d^2f=2dx^2+3dxdy+2dy^2$ là đúng hay sai?",
-    options: [
-        "Đúng",
-        "Sai"
-    ],
-    answer: 1,
-    solution:
-        "Ta có $f_{xx}=2$, $f_{xy}=3$, $f_{yy}=2$. " +
-        "Do đó\n" +
-        "$$d^2f=2dx^2+2\\cdot3dxdy+2dy^2"
-        +"=2dx^2+6dxdy+2dy^2.$$ "
-        + "Đề bài ghi $3dxdy$ nên phát biểu là sai."
-},
+        // =========================================================
+        // 3. VI PHÂN HÀM HAI BIẾN
+        // =========================================================
 
-            {
-                id: 11,
-                topic: "Cực trị",
-                type: "choice",
-                question:
-                    "Điểm dừng của hàm $f(x,y)=x^2+y^2-2x-4y$ là:",
-                options: [
-                    "$(0,0)$",
-                    "$(1,2)$",
-                    "$(-1,-2)$",
-                    "$(2,4)$"
-                ],
-                answer: 1,
-                solution:
-                    "$f_x=2x-2=0\\Rightarrow x=1$; " +
-                    "$f_y=2y-4=0\\Rightarrow y=2$. " +
-                    "Điểm dừng là $(1,2)$."
-            },
+        {
+            id: 8,
+            topic: "Vi phân",
+            type: "choice",
+            question:
+                "Cho $z=x^2+y^2$. Vi phân cấp một $dz$ là:",
+            options: [
+                "$2x\\,dx+2y\\,dy$",
+                "$x^2\\,dx+y^2\\,dy$",
+                "$2x+2y$",
+                "$2\\,dx+2\\,dy$"
+            ],
+            answer: 0,
+            solution:
+                "$f^{\\prime}_x=2x$, $f^{\\prime}_y=2y$. " +
+                "Do đó " +
+                "$dz=f^{\\prime}_x\\,dx+f^{\\prime}_y\\,dy" +
+                "=2x\\,dx+2y\\,dy$."
+        },
 
-            {
-    id: 12,
-    topic: "Cực trị",
-    type: "choice",
-    question:
-        "Cho $f(x,y)=x^2+2y^2-4x-8y$. Điểm cực tiểu của hàm số là:",
-    options: [
-        "$(2;2)$",
-        "$(2;1)$",
-        "$(1;2)$",
-        "$(0;0)$"
-    ],
-    answer: 0,
-    solution:
-        "Ta có\n" +
-        "$$f_x=2x-4=0\\Rightarrow x=2,$$\n" +
-        "$$f_y=4y-8=0\\Rightarrow y=2.$$" +
-        "Hơn nữa $f_{xx}=2>0$, $f_{yy}=4>0$, $f_{xy}=0$ nên\n" +
-        "$$D=f_{xx}f_{yy}-f_{xy}^2=2\\cdot4-0=8>0.$$" +
-        "Vì $D>0$ và $f_{xx}>0$ nên $(2;2)$ là điểm cực tiểu."
-},
+        {
+            id: 9,
+            topic: "Vi phân",
+            type: "choice",
+            question:
+                "Công thức đúng của vi phân cấp hai là:",
+            options: [
+                "$d^2z=f^{\\prime\\prime}_{xx}\\,dx^2+" +
+                    "f^{\\prime\\prime}_{xy}\\,dx\\,dy+" +
+                    "f^{\\prime\\prime}_{yy}\\,dy^2$",
 
-            {
-    id: 13,
-    topic: "Cực trị",
-    type: "choice",
-    question:
-        "Cho $f(x,y)=x^2-y^2+2x-4y$. Điểm dừng của hàm số là:",
-    options: [
-        "$(-1;2)$ và là điểm cực tiểu",
-        "$(-1;-2)$ và là điểm yên ngựa",
-        "$(1;-2)$ và là điểm cực đại",
-        "$(-1;2)$ và là điểm yên ngựa"
-    ],
-    answer: 3,
-    solution:
-        "Ta có\n" +
-        "$$f_x=2x+2=0\\Rightarrow x=-1,$$\n" +
-        "$$f_y=-2y-4=0\\Rightarrow y=-2.$$" +
-        "Do đó điểm dừng là $(-1;-2)$. Tiếp theo,\n" +
-        "$$f_{xx}=2,\\quad f_{yy}=-2,\\quad f_{xy}=0.$$" +
-        "Suy ra\n" +
-        "$$D=f_{xx}f_{yy}-f_{xy}^2=2\\cdot(-2)-0=-4<0.$$" +
-        "Vì $D<0$ nên $(-1;-2)$ là điểm yên ngựa."
-},
+                "$d^2z=f^{\\prime\\prime}_{xx}\\,dx^2+" +
+                    "2f^{\\prime\\prime}_{xy}\\,dx\\,dy+" +
+                    "f^{\\prime\\prime}_{yy}\\,dy^2$",
 
-            {
-                id: 14,
-                topic: "Cực trị",
-                type: "number",
-                question:
-                    "Cho $f(x,y)=x^2+y^2-4x+2y$. " +
-                    "Điểm dừng có hoành độ bằng bao nhiêu?",
-                answer: 2,
-                tolerance: 0.0001,
-                placeholder: "Nhập một số, ví dụ: 2",
-                solution:
-                    "$f_x=2x-4$. Giải $2x-4=0$ được $x=2$."
-            },
+                "$d^2z=f^{\\prime}_x\\,dx+f^{\\prime}_y\\,dy$",
 
-            {
-                id: 15,
-                topic: "Cực trị",
-                type: "number",
-                question:
-                    "Với $f(x,y)=x^2-y^2$, giá trị " +
-                    "$D=f_{xx}f_{yy}-f_{xy}^2$ bằng bao nhiêu?",
-                answer: -4,
-                tolerance: 0.0001,
-                placeholder: "Nhập một số, ví dụ: -4",
-                solution:
-                    "$f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$. " +
-                    "Vì vậy $D=2(-2)-0^2=-4$."
-            }
-        ];
+                "$d^2z=f^{\\prime\\prime}_{xx}+" +
+                    "f^{\\prime\\prime}_{yy}$"
+            ],
+            answer: 1,
+            solution:
+                "Công thức cần nhớ là " +
+                "$d^2z=f^{\\prime\\prime}_{xx}\\,dx^2+" +
+                "2f^{\\prime\\prime}_{xy}\\,dx\\,dy+" +
+                "f^{\\prime\\prime}_{yy}\\,dy^2$."
+        },
+
+        {
+            id: 10,
+            topic: "Vi phân",
+            type: "truefalse",
+            question:
+                "Cho $f(x,y)=x^2+3xy+y^2$. Khẳng định " +
+                "$d^2f=2\\,dx^2+3\\,dx\\,dy+2\\,dy^2$ " +
+                "là đúng hay sai?",
+            options: [
+                "Đúng",
+                "Sai"
+            ],
+            answer: 1,
+            solution:
+                "Ta có " +
+                "$f^{\\prime\\prime}_{xx}=2$, " +
+                "$f^{\\prime\\prime}_{xy}=3$, " +
+                "$f^{\\prime\\prime}_{yy}=2$. " +
+                "Do đó " +
+                "$$d^2f=" +
+                "2\\,dx^2+2\\cdot3\\,dx\\,dy+2\\,dy^2" +
+                "=2\\,dx^2+6\\,dx\\,dy+2\\,dy^2.$$ " +
+                "Đề bài ghi $3\\,dx\\,dy$ nên phát biểu là sai."
+        },
+
+        // =========================================================
+        // 4. CỰC TRỊ HÀM HAI BIẾN
+        // =========================================================
+
+        {
+            id: 11,
+            topic: "Cực trị",
+            type: "choice",
+            question:
+                "Điểm dừng của hàm " +
+                "$f(x,y)=x^2+y^2-2x-4y$ là:",
+            options: [
+                "$(0,0)$",
+                "$(1,2)$",
+                "$(-1,-2)$",
+                "$(2,4)$"
+            ],
+            answer: 1,
+            solution:
+                "$f^{\\prime}_x=2x-2=0\\Rightarrow x=1$; " +
+                "$f^{\\prime}_y=2y-4=0\\Rightarrow y=2$. " +
+                "Điểm dừng là $(1,2)$."
+        },
+
+        {
+            id: 12,
+            topic: "Cực trị",
+            type: "choice",
+            question:
+                "Cho $f(x,y)=x^2+2y^2-4x-8y$. " +
+                "Điểm cực tiểu của hàm số là:",
+            options: [
+                "$(2;2)$",
+                "$(2;1)$",
+                "$(1;2)$",
+                "$(0;0)$"
+            ],
+            answer: 0,
+            solution:
+                "Ta có " +
+                "$$f^{\\prime}_x=2x-4=0\\Rightarrow x=2,$$" +
+                "$$f^{\\prime}_y=4y-8=0\\Rightarrow y=2.$$" +
+                "Hơn nữa, " +
+                "$f^{\\prime\\prime}_{xx}=2>0$, " +
+                "$f^{\\prime\\prime}_{yy}=4>0$, " +
+                "$f^{\\prime\\prime}_{xy}=0$ nên " +
+                "$$D=f^{\\prime\\prime}_{xx}" +
+                "f^{\\prime\\prime}_{yy}-" +
+                "\\left(f^{\\prime\\prime}_{xy}\\right)^2" +
+                "=2\\cdot4-0=8>0.$$" +
+                "Vì $D>0$ và " +
+                "$f^{\\prime\\prime}_{xx}>0$ nên $(2;2)$ " +
+                "là điểm cực tiểu."
+        },
+
+        {
+            id: 13,
+            topic: "Cực trị",
+            type: "choice",
+            question:
+                "Cho $f(x,y)=x^2-y^2+2x-4y$. " +
+                "Điểm dừng và tính chất của điểm dừng là:",
+            options: [
+                "$(-1;2)$ và là điểm cực tiểu",
+                "$(-1;-2)$ và là điểm yên ngựa",
+                "$(1;-2)$ và là điểm cực đại",
+                "$(-1;2)$ và là điểm yên ngựa"
+            ],
+            answer: 1,
+            solution:
+                "Ta có " +
+                "$$f^{\\prime}_x=2x+2=0\\Rightarrow x=-1,$$" +
+                "$$f^{\\prime}_y=-2y-4=0\\Rightarrow y=-2.$$" +
+                "Do đó điểm dừng là $(-1;-2)$. Tiếp theo, " +
+                "$$f^{\\prime\\prime}_{xx}=2,\\quad " +
+                "f^{\\prime\\prime}_{yy}=-2,\\quad " +
+                "f^{\\prime\\prime}_{xy}=0.$$" +
+                "Suy ra " +
+                "$$D=f^{\\prime\\prime}_{xx}" +
+                "f^{\\prime\\prime}_{yy}-" +
+                "\\left(f^{\\prime\\prime}_{xy}\\right)^2" +
+                "=2\\cdot(-2)-0=-4<0.$$" +
+                "Vì $D<0$ nên $(-1;-2)$ là điểm yên ngựa."
+        },
+
+        {
+            id: 14,
+            topic: "Cực trị",
+            type: "number",
+            question:
+                "Cho $f(x,y)=x^2+y^2-4x+2y$. " +
+                "Điểm dừng có hoành độ bằng bao nhiêu?",
+            answer: 2,
+            tolerance: 0.0001,
+            placeholder: "Nhập một số, ví dụ: 2",
+            solution:
+                "$f^{\\prime}_x=2x-4$. " +
+                "Giải $2x-4=0$ được $x=2$."
+        },
+
+        {
+            id: 15,
+            topic: "Cực trị",
+            type: "number",
+            question:
+                "Với $f(x,y)=x^2-y^2$, giá trị " +
+                "$D=f^{\\prime\\prime}_{xx}" +
+                "f^{\\prime\\prime}_{yy}-" +
+                "\\left(f^{\\prime\\prime}_{xy}\\right)^2$ " +
+                "bằng bao nhiêu?",
+            answer: -4,
+            tolerance: 0.0001,
+            placeholder: "Nhập một số, ví dụ: -4",
+            solution:
+                "$f^{\\prime\\prime}_{xx}=2$, " +
+                "$f^{\\prime\\prime}_{yy}=-2$, " +
+                "$f^{\\prime\\prime}_{xy}=0$. " +
+                "Vì vậy " +
+                "$D=2\\cdot(-2)-0^2=-4$."
+        }
+    ];
 
 
         /* =========================================================
