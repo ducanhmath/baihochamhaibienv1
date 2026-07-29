@@ -1,1 +1,5008 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Bài học đạo hàm và vi phân hàm hai biến, gồm đạo hàm riêng, vi phân, cực trị và bài tập chấm điểm tự động."
+    >
+
+    <meta name="author" content="Giảng viên Nguyễn Đức Ánh">
+
+    <title>Đạo hàm – Vi phân hàm hai biến | Nguyễn Đức Ánh</title>
+
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [
+                    ["$", "$"],
+                    ["\\(", "\\)"]
+                ],
+                displayMath: [
+                    ["$$", "$$"],
+                    ["\\[", "\\]"]
+                ],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: "global"
+            },
+            options: {
+                skipHtmlTags: [
+                    "script",
+                    "noscript",
+                    "style",
+                    "textarea",
+                    "pre",
+                    "code"
+                ]
+            }
+        };
+    </script>
+
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+
+    <style>
+        /* =========================================================
+           1. BIẾN GIAO DIỆN
+        ========================================================= */
+
+        :root {
+            --page-bg: #f3f8f7;
+            --page-bg-secondary: #eef5f8;
+            --surface: rgba(255, 255, 255, 0.94);
+            --surface-solid: #ffffff;
+            --surface-soft: #f7fbfb;
+
+            --primary: #1f7a72;
+            --primary-dark: #145e58;
+            --primary-soft: #dff3ef;
+
+            --secondary: #4775b8;
+            --secondary-soft: #e8f0fc;
+
+            --accent: #d87b45;
+            --accent-soft: #fff0e6;
+
+            --purple: #7558a6;
+            --purple-soft: #f0eafd;
+
+            --success: #23845c;
+            --success-soft: #e5f7ef;
+
+            --danger: #c54f5d;
+            --danger-soft: #fdecef;
+
+            --warning: #a96f16;
+            --warning-soft: #fff6dc;
+
+            --text: #24343a;
+            --text-soft: #52666d;
+            --text-muted: #71858b;
+
+            --border: #d9e6e5;
+            --border-strong: #bfd5d2;
+
+            --shadow-sm: 0 6px 18px rgba(39, 78, 82, 0.07);
+            --shadow-md: 0 14px 38px rgba(39, 78, 82, 0.11);
+            --shadow-lg: 0 22px 60px rgba(39, 78, 82, 0.15);
+
+            --radius-sm: 10px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+
+            --content-width: 1180px;
+            --header-height: 72px;
+
+            --font-size-base: 16px;
+        }
+
+        body.large-text {
+            --font-size-base: 18px;
+        }
+
+        body.high-contrast {
+            --page-bg: #ffffff;
+            --page-bg-secondary: #f2f2f2;
+            --surface: #ffffff;
+            --surface-solid: #ffffff;
+            --surface-soft: #fafafa;
+
+            --primary: #075f56;
+            --primary-dark: #003f39;
+            --primary-soft: #d5f4ed;
+
+            --secondary: #164c9c;
+            --secondary-soft: #e2edff;
+
+            --text: #101719;
+            --text-soft: #29373b;
+            --text-muted: #46575c;
+
+            --border: #a9b8b6;
+            --border-strong: #718a86;
+        }
+
+
+        /* =========================================================
+           2. RESET VÀ THIẾT LẬP CHUNG
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 92px;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                ui-sans-serif,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            font-size: var(--font-size-base);
+            line-height: 1.7;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(99, 181, 164, 0.14),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 95% 8%,
+                    rgba(105, 146, 204, 0.12),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    145deg,
+                    var(--page-bg),
+                    var(--page-bg-secondary)
+                );
+
+            transition:
+                font-size 0.2s ease,
+                background-color 0.2s ease;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+
+            background-image:
+                linear-gradient(
+                    rgba(31, 122, 114, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(31, 122, 114, 0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 32px 32px;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button {
+            border: 0;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        img,
+        svg {
+            max-width: 100%;
+        }
+
+        ::selection {
+            color: #ffffff;
+            background: var(--primary);
+        }
+
+        :focus-visible {
+            outline: 3px solid rgba(71, 117, 184, 0.38);
+            outline-offset: 3px;
+        }
+
+
+        /* =========================================================
+           3. THANH TIÊU ĐỀ
+        ========================================================= */
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            min-height: var(--header-height);
+
+            background: rgba(247, 252, 251, 0.88);
+            border-bottom: 1px solid rgba(191, 213, 210, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .topbar-inner {
+            width: min(
+                calc(100% - 28px),
+                var(--content-width)
+            );
+
+            min-height: var(--header-height);
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            min-width: 0;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 46px;
+            height: 46px;
+            flex: 0 0 auto;
+
+            display: grid;
+            place-items: center;
+
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            box-shadow:
+                0 8px 20px rgba(31, 122, 114, 0.22);
+        }
+
+        .brand-text {
+            min-width: 0;
+        }
+
+        .brand-title {
+            display: block;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            color: var(--text);
+            font-size: 0.98rem;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        .brand-subtitle {
+            display: block;
+
+            margin-top: 2px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            color: var(--text-muted);
+            font-size: 0.77rem;
+            line-height: 1.3;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-button {
+            width: 42px;
+            height: 42px;
+
+            display: inline-grid;
+            place-items: center;
+
+            color: var(--text-soft);
+            cursor: pointer;
+
+            border: 1px solid var(--border);
+            border-radius: 13px;
+
+            background: rgba(255, 255, 255, 0.75);
+
+            transition:
+                transform 0.2s ease,
+                color 0.2s ease,
+                border-color 0.2s ease,
+                background-color 0.2s ease;
+        }
+
+        .icon-button:hover {
+            color: var(--primary);
+            border-color: var(--border-strong);
+            background: var(--surface-solid);
+            transform: translateY(-2px);
+        }
+
+        .icon-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .menu-button {
+            display: none;
+        }
+
+
+        /* =========================================================
+           4. BỐ CỤC TRANG
+        ========================================================= */
+
+        .page-shell {
+            width: min(
+                calc(100% - 28px),
+                var(--content-width)
+            );
+
+            margin: 26px auto 48px;
+
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            align-items: start;
+            gap: 26px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: calc(var(--header-height) + 20px);
+
+            max-height: calc(
+                100vh - var(--header-height) - 40px
+            );
+
+            overflow-y: auto;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+
+            background: var(--surface);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-inner {
+            padding: 18px;
+        }
+
+        .sidebar-heading {
+            margin: 0 0 12px;
+
+            color: var(--text);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .lesson-progress {
+            margin-bottom: 18px;
+            padding: 14px;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            background: var(--surface-soft);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+
+            margin-bottom: 8px;
+
+            color: var(--text-soft);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .progress-track {
+            height: 9px;
+            overflow: hidden;
+
+            border-radius: 999px;
+            background: #dfe9e8;
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    #58aa9d
+                );
+
+            transition: width 0.35s ease;
+        }
+
+        .nav-list {
+            margin: 0;
+            padding: 0;
+
+            display: grid;
+            gap: 5px;
+
+            list-style: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 10px 11px;
+
+            color: var(--text-soft);
+            font-size: 0.9rem;
+            font-weight: 650;
+            line-height: 1.35;
+            text-decoration: none;
+
+            border-radius: 11px;
+
+            transition:
+                color 0.2s ease,
+                background-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-dark);
+            background: var(--primary-soft);
+            transform: translateX(3px);
+        }
+
+        .nav-number {
+            width: 25px;
+            height: 25px;
+            flex: 0 0 auto;
+
+            display: inline-grid;
+            place-items: center;
+
+            color: var(--primary-dark);
+            font-size: 0.75rem;
+            font-weight: 800;
+
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .sidebar-note {
+            margin-top: 18px;
+            padding: 14px;
+
+            color: var(--text-soft);
+            font-size: 0.82rem;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--secondary-soft),
+                    #f5f8ff
+                );
+        }
+
+        .main-content {
+            min-width: 0;
+        }
+
+
+        /* =========================================================
+           5. HERO
+        ========================================================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 430px;
+            padding: clamp(28px, 5vw, 58px);
+
+            display: grid;
+            grid-template-columns:
+                minmax(0, 1.15fr)
+                minmax(260px, 0.85fr);
+
+            align-items: center;
+            gap: 32px;
+
+            color: #ffffff;
+
+            border-radius: var(--radius-lg);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #175f59 0%,
+                    #247f74 50%,
+                    #426eaa 100%
+                );
+
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hero::before {
+            width: 330px;
+            height: 330px;
+            top: -175px;
+            right: -65px;
+        }
+
+        .hero::after {
+            width: 260px;
+            height: 260px;
+            left: 42%;
+            bottom: -190px;
+        }
+
+        .hero-content,
+        .hero-visual {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 18px;
+            padding: 7px 12px;
+
+            color: #effffb;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h1 {
+            margin: 0;
+
+            max-width: 760px;
+
+            color: #ffffff;
+            font-size: clamp(2.1rem, 5vw, 4.35rem);
+            line-height: 1.04;
+            letter-spacing: -0.045em;
+        }
+
+        .hero-description {
+            max-width: 690px;
+
+            margin: 22px 0 0;
+
+            color: rgba(255, 255, 255, 0.86);
+            font-size: clamp(1rem, 1.7vw, 1.15rem);
+        }
+
+        .hero-meta {
+            margin-top: 22px;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hero-chip {
+            padding: 8px 12px;
+
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.82rem;
+            font-weight: 700;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-actions {
+            margin-top: 28px;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .button {
+            min-height: 46px;
+            padding: 11px 18px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            font-weight: 800;
+            line-height: 1.25;
+            text-decoration: none;
+
+            cursor: pointer;
+
+            border: 1px solid transparent;
+            border-radius: 14px;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background-color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            color: var(--primary-dark);
+            background: #ffffff;
+            box-shadow: 0 10px 25px rgba(15, 42, 46, 0.18);
+        }
+
+        .button-primary:hover {
+            box-shadow: 0 14px 32px rgba(15, 42, 46, 0.24);
+        }
+
+        .button-ghost {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .button-ghost:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-visual {
+            min-height: 300px;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .formula-orbit {
+            position: relative;
+
+            width: min(100%, 340px);
+            aspect-ratio: 1;
+
+            display: grid;
+            place-items: center;
+
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255, 255, 255, 0.18),
+                    rgba(255, 255, 255, 0.03) 65%,
+                    transparent 66%
+                );
+        }
+
+        .formula-center {
+            width: 180px;
+            min-height: 120px;
+
+            display: grid;
+            place-items: center;
+
+            color: #ffffff;
+            font-size: 1.18rem;
+            font-weight: 800;
+            text-align: center;
+
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 28px;
+
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow:
+                0 18px 40px rgba(11, 41, 47, 0.2);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .orbit-item {
+            position: absolute;
+
+            min-width: 98px;
+            padding: 11px;
+
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-align: center;
+
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 14px;
+
+            background: rgba(17, 62, 68, 0.32);
+            box-shadow: 0 10px 25px rgba(8, 35, 41, 0.14);
+        }
+
+        .orbit-item.one {
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .orbit-item.two {
+            top: 45%;
+            right: -2%;
+            transform: translateY(-50%);
+        }
+
+        .orbit-item.three {
+            bottom: 6%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .orbit-item.four {
+            top: 45%;
+            left: -2%;
+            transform: translateY(-50%);
+        }
+
+
+        /* =========================================================
+           6. KHỐI NỘI DUNG
+        ========================================================= */
+
+        .section {
+            margin-top: 28px;
+            padding: clamp(24px, 4vw, 40px);
+
+            scroll-margin-top: 95px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background: var(--surface);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .section-index {
+            width: 48px;
+            height: 48px;
+            flex: 0 0 auto;
+
+            display: grid;
+            place-items: center;
+
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 900;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            box-shadow:
+                0 9px 22px rgba(31, 122, 114, 0.2);
+        }
+
+        .section-heading-wrap {
+            min-width: 0;
+        }
+
+        .section-kicker {
+            margin-bottom: 4px;
+
+            color: var(--primary);
+            font-size: 0.76rem;
+            font-weight: 850;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        .section h2 {
+            margin: 0;
+
+            color: var(--text);
+            font-size: clamp(1.45rem, 3vw, 2.05rem);
+            line-height: 1.22;
+            letter-spacing: -0.025em;
+        }
+
+        .section-lead {
+            margin: 8px 0 0;
+            color: var(--text-soft);
+        }
+
+        .subheading {
+            margin: 30px 0 14px;
+
+            color: var(--text);
+            font-size: 1.16rem;
+            line-height: 1.35;
+        }
+
+        .learning-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 16px;
+        }
+
+        .learning-card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 20px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    var(--surface-soft)
+                );
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .learning-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+
+        .learning-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 4px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+        }
+
+        .learning-card h3 {
+            margin: 0 0 10px;
+
+            color: var(--primary-dark);
+            font-size: 1.02rem;
+        }
+
+        .learning-card p {
+            margin: 8px 0;
+            color: var(--text-soft);
+        }
+
+        .formula-box {
+            margin: 14px 0;
+            padding: 15px;
+
+            overflow-x: auto;
+
+            color: var(--text);
+            text-align: center;
+
+            border: 1px solid var(--border);
+            border-radius: 13px;
+
+            background: var(--primary-soft);
+        }
+
+        .formula-box.blue {
+            background: var(--secondary-soft);
+        }
+
+        .formula-box.orange {
+            background: var(--accent-soft);
+        }
+
+        .formula-box.purple {
+            background: var(--purple-soft);
+        }
+
+        .memory-box {
+            margin: 22px 0;
+            padding: 18px 20px;
+
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 14px;
+
+            border: 1px solid #cce4df;
+            border-radius: var(--radius-md);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #edf9f6,
+                    #f9fdfc
+                );
+        }
+
+        .memory-icon {
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+            place-items: center;
+
+            font-size: 1.25rem;
+
+            border-radius: 13px;
+            background: #d5f2eb;
+        }
+
+        .memory-box h3 {
+            margin: 0 0 5px;
+            color: var(--primary-dark);
+            font-size: 1rem;
+        }
+
+        .memory-box p {
+            margin: 0;
+            color: var(--text-soft);
+        }
+
+        .steps {
+            display: grid;
+            gap: 12px;
+
+            margin: 16px 0;
+            padding: 0;
+
+            list-style: none;
+        }
+
+        .step {
+            padding: 15px;
+
+            display: grid;
+            grid-template-columns: 34px minmax(0, 1fr);
+            align-items: start;
+            gap: 12px;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            background: #ffffff;
+        }
+
+        .step-number {
+            width: 34px;
+            height: 34px;
+
+            display: grid;
+            place-items: center;
+
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 900;
+
+            border-radius: 10px;
+            background: var(--primary);
+        }
+
+        .step-content strong {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--text);
+        }
+
+        .step-content p {
+            margin: 0;
+            color: var(--text-soft);
+        }
+
+        .example {
+            margin-top: 20px;
+            padding: 20px;
+
+            border: 1px solid #d6e1f2;
+            border-radius: var(--radius-md);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f5f8fe,
+                    #ffffff
+                );
+        }
+
+        .example-header {
+            margin-bottom: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .example-title {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .tag {
+            padding: 5px 9px;
+
+            color: var(--secondary);
+            font-size: 0.74rem;
+            font-weight: 800;
+
+            border-radius: 999px;
+            background: var(--secondary-soft);
+        }
+
+        .solution-toggle {
+            margin-top: 12px;
+            padding: 9px 13px;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            color: var(--primary-dark);
+            font-size: 0.86rem;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            border: 1px solid var(--border-strong);
+            border-radius: 11px;
+
+            background: var(--primary-soft);
+        }
+
+        .solution-toggle:hover {
+            background: #d4eee9;
+        }
+
+        .example-solution {
+            display: none;
+
+            margin-top: 14px;
+            padding: 16px;
+
+            border-left: 4px solid var(--primary);
+            border-radius: 0 13px 13px 0;
+
+            background: #ffffff;
+        }
+
+        .example-solution.open {
+            display: block;
+            animation: appear 0.25s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .compact-table-wrapper {
+            margin-top: 18px;
+            overflow-x: auto;
+
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .compact-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+        }
+
+        .compact-table th,
+        .compact-table td {
+            padding: 13px 15px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .compact-table th {
+            color: var(--primary-dark);
+            font-size: 0.84rem;
+            background: var(--primary-soft);
+        }
+
+        .compact-table tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .compact-table td {
+            color: var(--text-soft);
+        }
+
+
+        /* =========================================================
+           7. CỰC TRỊ
+        ========================================================= */
+
+        .extrema-flow {
+            margin-top: 20px;
+
+            display: grid;
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 14px;
+        }
+
+        .flow-card {
+            padding: 17px;
+
+            text-align: center;
+
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: #ffffff;
+        }
+
+        .flow-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--primary-dark);
+        }
+
+        .flow-arrow {
+            display: none;
+        }
+
+        .classification-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 14px;
+        }
+
+        .classification-card {
+            padding: 18px;
+
+            border-radius: 17px;
+            border: 1px solid var(--border);
+        }
+
+        .classification-card.minimum {
+            background: var(--success-soft);
+        }
+
+        .classification-card.maximum {
+            background: var(--secondary-soft);
+        }
+
+        .classification-card.saddle {
+            background: var(--danger-soft);
+        }
+
+        .classification-card h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+        }
+
+        .classification-card p {
+            margin: 5px 0;
+            color: var(--text-soft);
+        }
+
+
+        /* =========================================================
+           8. QUIZ
+        ========================================================= */
+
+        .quiz-intro {
+            padding: 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-soft),
+                    #f8fcfb
+                );
+        }
+
+        .quiz-intro h3 {
+            margin: 0;
+            color: var(--primary-dark);
+        }
+
+        .quiz-intro p {
+            margin: 5px 0 0;
+            color: var(--text-soft);
+        }
+
+        .quiz-summary-mini {
+            min-width: 122px;
+            padding: 12px 14px;
+
+            color: var(--primary-dark);
+            font-weight: 900;
+            text-align: center;
+
+            border: 1px solid var(--border-strong);
+            border-radius: 14px;
+            background: #ffffff;
+        }
+
+        .quiz-toolbar {
+            margin-top: 16px;
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .quiz-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-button {
+            padding: 8px 12px;
+
+            color: var(--text-soft);
+            font-size: 0.83rem;
+            font-weight: 750;
+
+            cursor: pointer;
+
+            border: 1px solid var(--border);
+            border-radius: 999px;
+
+            background: #ffffff;
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            color: var(--primary-dark);
+            border-color: var(--border-strong);
+            background: var(--primary-soft);
+        }
+
+        .questions-container {
+            margin-top: 18px;
+
+            display: grid;
+            gap: 16px;
+        }
+
+        .question-card {
+            padding: 20px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+
+            background: #ffffff;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .question-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .question-card.correct {
+            border-color: #86c9ad;
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    var(--success-soft)
+                );
+        }
+
+        .question-card.incorrect {
+            border-color: #e5a4ad;
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    var(--danger-soft)
+                );
+        }
+
+        .question-topline {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .question-number {
+            margin: 0;
+
+            color: var(--primary-dark);
+            font-size: 0.82rem;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .question-topic {
+            padding: 5px 9px;
+
+            color: var(--secondary);
+            font-size: 0.72rem;
+            font-weight: 800;
+
+            border-radius: 999px;
+            background: var(--secondary-soft);
+        }
+
+        .question-text {
+            margin: 12px 0 15px;
+
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 650;
+        }
+
+        .options {
+            display: grid;
+            gap: 9px;
+        }
+
+        .option {
+            position: relative;
+
+            padding: 12px 13px;
+
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            align-items: start;
+            gap: 10px;
+
+            cursor: pointer;
+
+            border: 1px solid var(--border);
+            border-radius: 13px;
+
+            background: var(--surface-soft);
+
+            transition:
+                border-color 0.2s ease,
+                background-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .option:hover {
+            border-color: var(--border-strong);
+            background: var(--primary-soft);
+            transform: translateX(2px);
+        }
+
+        .option input {
+            width: 18px;
+            height: 18px;
+            margin-top: 3px;
+
+            accent-color: var(--primary);
+        }
+
+        .short-answer-wrap {
+            display: grid;
+            gap: 7px;
+        }
+
+        .short-answer-input {
+            width: 100%;
+            min-height: 46px;
+            padding: 11px 13px;
+
+            color: var(--text);
+
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+            background: #ffffff;
+        }
+
+        .answer-note {
+            color: var(--text-muted);
+            font-size: 0.79rem;
+        }
+
+        .question-feedback {
+            display: none;
+
+            margin-top: 14px;
+            padding: 13px 15px;
+
+            color: var(--text-soft);
+
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.78);
+        }
+
+        .question-feedback.show {
+            display: block;
+        }
+
+        .question-feedback strong {
+            color: var(--text);
+        }
+
+        .quiz-actions {
+            position: sticky;
+            bottom: 14px;
+            z-index: 40;
+
+            margin-top: 22px;
+            padding: 13px;
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            border: 1px solid rgba(191, 213, 210, 0.8);
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.88);
+            box-shadow: var(--shadow-md);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .action-button {
+            min-height: 44px;
+            padding: 10px 16px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            font-weight: 850;
+
+            cursor: pointer;
+
+            border-radius: 13px;
+        }
+
+        .action-button.submit {
+            color: #ffffff;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            box-shadow:
+                0 9px 22px rgba(31, 122, 114, 0.2);
+        }
+
+        .action-button.reset {
+            color: var(--danger);
+            border: 1px solid #efc5ca;
+            background: var(--danger-soft);
+        }
+
+        .action-button.shuffle {
+            color: var(--secondary);
+            border: 1px solid #cad9ef;
+            background: var(--secondary-soft);
+        }
+
+        .result-panel {
+            display: none;
+
+            margin-top: 22px;
+            padding: clamp(22px, 4vw, 34px);
+
+            text-align: center;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    var(--primary-soft)
+                );
+
+            box-shadow: var(--shadow-md);
+        }
+
+        .result-panel.show {
+            display: block;
+            animation: appear 0.35s ease;
+        }
+
+        .score-ring {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 18px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+                conic-gradient(
+                    var(--primary) 0deg,
+                    var(--primary) var(--score-angle, 0deg),
+                    #dce8e6 var(--score-angle, 0deg),
+                    #dce8e6 360deg
+                );
+        }
+
+        .score-ring-inner {
+            width: 116px;
+            height: 116px;
+
+            display: grid;
+            place-items: center;
+
+            color: var(--primary-dark);
+            font-size: 1.55rem;
+            font-weight: 900;
+
+            border-radius: 50%;
+            background: #ffffff;
+        }
+
+        .result-title {
+            margin: 0;
+            color: var(--text);
+            font-size: 1.5rem;
+        }
+
+        .result-message {
+            max-width: 620px;
+            margin: 8px auto 0;
+            color: var(--text-soft);
+        }
+
+        .result-details {
+            margin-top: 20px;
+
+            display: grid;
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 12px;
+        }
+
+        .result-stat {
+            padding: 15px;
+
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .result-stat-value {
+            display: block;
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            font-weight: 900;
+        }
+
+        .result-stat-label {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+
+        /* =========================================================
+           9. FOOTER VÀ NÚT LÊN ĐẦU TRANG
+        ========================================================= */
+
+        .footer {
+            margin-top: 28px;
+            padding: 28px;
+
+            text-align: center;
+
+            color: var(--text-soft);
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background: var(--surface);
+        }
+
+        .footer strong {
+            color: var(--primary-dark);
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 900;
+
+            width: 46px;
+            height: 46px;
+
+            display: grid;
+            place-items: center;
+
+            color: #ffffff;
+            cursor: pointer;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            box-shadow: var(--shadow-md);
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+
+            transition:
+                opacity 0.2s ease,
+                visibility 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+
+        /* =========================================================
+           10. OVERLAY MOBILE
+        ========================================================= */
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1050;
+
+            display: none;
+
+            background: rgba(18, 34, 38, 0.42);
+            backdrop-filter: blur(3px);
+        }
+
+
+        /* =========================================================
+           11. RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1020px) {
+            .menu-button {
+                display: inline-grid;
+            }
+
+            .page-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1100;
+
+                width: min(86vw, 330px);
+                height: 100vh;
+                max-height: none;
+
+                border-radius: 0 22px 22px 0;
+
+                transform: translateX(-105%);
+                transition: transform 0.25s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.show {
+                display: block;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                min-height: 280px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            :root {
+                --header-height: 66px;
+            }
+
+            .brand-subtitle {
+                display: none;
+            }
+
+            .topbar-actions .text-control-label {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 30px 22px;
+                border-radius: 22px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 10vw, 3.15rem);
+            }
+
+            .formula-orbit {
+                width: min(92%, 310px);
+            }
+
+            .learning-grid,
+            .classification-grid,
+            .extrema-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 22px 18px;
+                border-radius: 22px;
+            }
+
+            .quiz-intro {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .result-details {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-actions {
+                position: static;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .topbar-inner,
+            .page-shell {
+                width: min(
+                    calc(100% - 18px),
+                    var(--content-width)
+                );
+            }
+
+            .brand-logo {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+            }
+
+            .brand-title {
+                max-width: 155px;
+                font-size: 0.84rem;
+            }
+
+            .icon-button {
+                width: 39px;
+                height: 39px;
+            }
+
+            .hero-visual {
+                min-height: 255px;
+            }
+
+            .formula-orbit {
+                width: 255px;
+            }
+
+            .formula-center {
+                width: 145px;
+                min-height: 95px;
+                font-size: 0.95rem;
+            }
+
+            .orbit-item {
+                min-width: 82px;
+                padding: 8px;
+                font-size: 0.69rem;
+            }
+
+            .section-header {
+                gap: 11px;
+            }
+
+            .section-index {
+                width: 42px;
+                height: 42px;
+            }
+
+            .memory-box {
+                grid-template-columns: 1fr;
+            }
+
+            .question-card {
+                padding: 17px 14px;
+            }
+
+            .question-topline {
+                flex-direction: column;
+            }
+
+            .quiz-toolbar {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .quiz-filter {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 5px;
+            }
+
+            .filter-button {
+                flex: 0 0 auto;
+            }
+
+            .action-button {
+                width: 100%;
+            }
+        }
+
+        @media print {
+            .topbar,
+            .sidebar,
+            .quiz-actions,
+            .back-to-top,
+            .solution-toggle,
+            .sidebar-overlay {
+                display: none !important;
+            }
+
+            body {
+                background: #ffffff;
+            }
+
+            .page-shell {
+                width: 100%;
+                display: block;
+                margin: 0;
+            }
+
+            .section,
+            .hero,
+            .footer {
+                box-shadow: none;
+                break-inside: avoid;
+            }
+
+            .hero {
+                color: #000000;
+                background: #ffffff;
+                border: 2px solid #bbbbbb;
+            }
+
+            .hero h1,
+            .hero-description,
+            .hero-chip,
+            .eyebrow {
+                color: #000000;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .example-solution {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- =========================================================
+         THANH TIÊU ĐỀ
+    ========================================================== -->
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="#trang-chu">
+                <div class="brand-logo" aria-hidden="true">
+                    ∂
+                </div>
+
+                <div class="brand-text">
+                    <span class="brand-title">
+                        Đạo hàm – Vi phân hàm hai biến
+                    </span>
+
+                    <span class="brand-subtitle">
+                        Giảng viên Nguyễn Đức Ánh
+                    </span>
+                </div>
+            </a>
+
+            <div class="topbar-actions">
+                <button
+                    class="icon-button menu-button"
+                    id="menuButton"
+                    type="button"
+                    title="Mở mục lục"
+                    aria-label="Mở mục lục"
+                    aria-expanded="false"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 6h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 18h16"></path>
+                    </svg>
+                </button>
+
+                <button
+                    class="icon-button"
+                    id="fontSizeButton"
+                    type="button"
+                    title="Tăng hoặc giảm cỡ chữ"
+                    aria-label="Tăng hoặc giảm cỡ chữ"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 19V5"></path>
+                        <path d="M2 5h4"></path>
+                        <path d="M2 19h4"></path>
+                        <path d="M10 17l4-10 4 10"></path>
+                        <path d="M11.5 13h5"></path>
+                    </svg>
+                </button>
+
+                <button
+                    class="icon-button"
+                    id="contrastButton"
+                    type="button"
+                    title="Bật hoặc tắt tương phản cao"
+                    aria-label="Bật hoặc tắt tương phản cao"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                    >
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 3a9 9 0 0 1 0 18z"></path>
+                    </svg>
+                </button>
+
+                <button
+                    class="icon-button"
+                    type="button"
+                    title="In bài học"
+                    aria-label="In bài học"
+                    onclick="window.print()"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                    >
+                        <path d="M6 9V3h12v6"></path>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="7"></rect>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- =========================================================
+         OVERLAY MOBILE
+    ========================================================== -->
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =========================================================
+         BỐ CỤC CHÍNH
+    ========================================================== -->
+    <div class="page-shell">
+        <!-- MỤC LỤC -->
+        <aside
+            class="sidebar"
+            id="sidebar"
+            aria-label="Mục lục bài học"
+        >
+            <div class="sidebar-inner">
+                <p class="sidebar-heading">
+                    Tiến độ bài học
+                </p>
+
+                <div class="lesson-progress">
+                    <div class="progress-label">
+                        <span>Đã xem</span>
+                        <span id="progressText">0%</span>
+                    </div>
+
+                    <div
+                        class="progress-track"
+                        role="progressbar"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="0"
+                        id="progressTrack"
+                    >
+                        <div
+                            class="progress-fill"
+                            id="progressFill"
+                        ></div>
+                    </div>
+                </div>
+
+                <p class="sidebar-heading">
+                    Nội dung
+                </p>
+
+                <nav>
+                    <ul class="nav-list">
+                        <li>
+                            <a
+                                class="nav-link active"
+                                href="#trang-chu"
+                            >
+                                <span class="nav-number">00</span>
+                                <span>Giới thiệu bài học</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="#muc-tieu"
+                            >
+                                <span class="nav-number">01</span>
+                                <span>Mục tiêu – Ghi nhớ</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="#dao-ham-rieng-cap-1"
+                            >
+                                <span class="nav-number">02</span>
+                                <span>Đạo hàm riêng cấp 1</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="#dao-ham-rieng-cap-2"
+                            >
+                                <span class="nav-number">03</span>
+                                <span>Đạo hàm riêng cấp 2</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="#vi-phan-cap-1"
+                            >
+                                <span class="nav-number">04</span>
+                                <span>Vi phân cấp 1</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="#vi-phan-cap-2"
+                            >
+                                <span class="nav-number">05</span>
+                                <span>Vi phân cấp 2</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="#cuc-tri"
+                            >
+                                <span class="nav-number">06</span>
+                                <span>Cực trị tự do</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="nav-link"
+                                href="#luyen-tap"
+                            >
+                                <span class="nav-number">07</span>
+                                <span>Luyện tập – Chấm điểm</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-note">
+                    <strong>Mẹo học nhanh:</strong>
+                    hãy tự làm ví dụ trước khi mở lời giải.
+                    Kết quả bài luyện tập được lưu trên trình duyệt.
+                </div>
+            </div>
+        </aside>
+
+
+        <!-- NỘI DUNG -->
+        <main class="main-content">
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+            <section class="hero" id="trang-chu">
+                <div class="hero-content">
+                    <span class="eyebrow">
+                        Toán cao cấp · Hàm nhiều biến
+                    </span>
+
+                    <h1>
+                        Đạo hàm và vi phân hàm hai biến
+                    </h1>
+
+                    <p class="hero-description">
+                        Ghi nhớ công thức trọng tâm, luyện kỹ năng
+                        tính đạo hàm riêng, vi phân và xét cực trị
+                        tự do của hàm hai biến.
+                    </p>
+
+                    <div class="hero-meta">
+                        <span class="hero-chip">
+                            Gọn lý thuyết
+                        </span>
+
+                        <span class="hero-chip">
+                            Có ví dụ mẫu
+                        </span>
+
+                        <span class="hero-chip">
+                            Chấm điểm tự động
+                        </span>
+
+                        <span class="hero-chip">
+                            Lưu tiến độ
+                        </span>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a
+                            class="button button-primary"
+                            href="#muc-tieu"
+                        >
+                            Bắt đầu bài học
+                            <span aria-hidden="true">→</span>
+                        </a>
+
+                        <a
+                            class="button button-ghost"
+                            href="#luyen-tap"
+                        >
+                            Làm bài luyện tập
+                        </a>
+                    </div>
+
+                    <p
+                        style="
+                            margin: 22px 0 0;
+                            color: rgba(255,255,255,0.78);
+                            font-size: 0.88rem;
+                        "
+                    >
+                        Tác giả:
+                        <strong>Giảng viên Nguyễn Đức Ánh</strong>
+                    </p>
+                </div>
+
+                <div
+                    class="hero-visual"
+                    aria-hidden="true"
+                >
+                    <div class="formula-orbit">
+                        <div class="formula-center">
+                            \[
+                                z=f(x,y)
+                            \]
+                        </div>
+
+                        <div class="orbit-item one">
+                            \(f_x,\ f_y\)
+                        </div>
+
+                        <div class="orbit-item two">
+                            \(d^2z\)
+                        </div>
+
+                        <div class="orbit-item three">
+                            \(D=f_{xx}f_{yy}-f_{xy}^2\)
+                        </div>
+
+                        <div class="orbit-item four">
+                            \(dz\)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- =================================================
+                 MỤC TIÊU
+            ================================================== -->
+            <section class="section" id="muc-tieu">
+                <div class="section-header">
+                    <div class="section-index">01</div>
+
+                    <div class="section-heading-wrap">
+                        <div class="section-kicker">
+                            Khởi động
+                        </div>
+
+                        <h2>
+                            Mục tiêu và bản đồ ghi nhớ
+                        </h2>
+
+                        <p class="section-lead">
+                            Sau bài học, người học thực hiện được
+                            các thao tác tính toán cơ bản với hàm
+                            hai biến.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="learning-grid">
+                    <article class="learning-card">
+                        <h3>Đạo hàm riêng cấp 1</h3>
+
+                        <p>
+                            Tính \(f_x\), \(f_y\) bằng cách xem biến
+                            còn lại là hằng số.
+                        </p>
+
+                        <div class="formula-box">
+                            \[
+                                f_x=\frac{\partial f}{\partial x},
+                                \qquad
+                                f_y=\frac{\partial f}{\partial y}
+                            \]
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <h3>Đạo hàm riêng cấp 2</h3>
+
+                        <p>
+                            Tính các đạo hàm \(f_{xx}\), \(f_{xy}\),
+                            \(f_{yx}\), \(f_{yy}\).
+                        </p>
+
+                        <div class="formula-box blue">
+                            \[
+                                f_{xy}
+                                =
+                                \frac{\partial}{\partial y}
+                                \left(f_x\right)
+                            \]
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <h3>Vi phân cấp 1 và cấp 2</h3>
+
+                        <p>
+                            Lập biểu thức \(dz\) và \(d^2z\) từ các
+                            đạo hàm riêng.
+                        </p>
+
+                        <div class="formula-box orange">
+                            \[
+                                dz=f_x\,dx+f_y\,dy
+                            \]
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <h3>Cực trị tự do</h3>
+
+                        <p>
+                            Tìm điểm dừng và dùng định thức Hessian
+                            để phân loại.
+                        </p>
+
+                        <div class="formula-box purple">
+                            \[
+                                D=f_{xx}f_{yy}-f_{xy}^{\,2}
+                            \]
+                        </div>
+                    </article>
+                </div>
+
+                <div class="memory-box">
+                    <div class="memory-icon" aria-hidden="true">
+                        💡
+                    </div>
+
+                    <div>
+                        <h3>Nguyên tắc quan trọng nhất</h3>
+
+                        <p>
+                            Khi lấy đạo hàm riêng theo \(x\), hãy
+                            xem \(y\) là hằng số. Khi lấy đạo hàm
+                            riêng theo \(y\), hãy xem \(x\) là
+                            hằng số.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="compact-table-wrapper">
+                    <table class="compact-table">
+                        <thead>
+                            <tr>
+                                <th>Nội dung</th>
+                                <th>Công thức cần nhớ</th>
+                                <th>Thao tác chính</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Đạo hàm riêng cấp 1</td>
+                                <td>
+                                    \(f_x,\ f_y\)
+                                </td>
+                                <td>
+                                    Giữ cố định một biến.
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Đạo hàm riêng cấp 2</td>
+                                <td>
+                                    \(f_{xx},f_{xy},f_{yx},f_{yy}\)
+                                </td>
+                                <td>
+                                    Tiếp tục đạo hàm từ cấp 1.
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Vi phân cấp 1</td>
+                                <td>
+                                    \(dz=f_xdx+f_ydy\)
+                                </td>
+                                <td>
+                                    Ghép đạo hàm riêng với \(dx,dy\).
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Vi phân cấp 2</td>
+                                <td>
+                                    \(d^2z=f_{xx}dx^2+2f_{xy}dxdy+f_{yy}dy^2\)
+                                </td>
+                                <td>
+                                    Chú ý hệ số \(2\) ở số hạng hỗn hợp.
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Cực trị tự do</td>
+                                <td>
+                                    \(f_x=f_y=0\), xét \(D\)
+                                </td>
+                                <td>
+                                    Tìm điểm dừng rồi phân loại.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+            <!-- =================================================
+                 ĐẠO HÀM RIÊNG CẤP 1
+            ================================================== -->
+            <section
+                class="section"
+                id="dao-ham-rieng-cap-1"
+            >
+                <div class="section-header">
+                    <div class="section-index">02</div>
+
+                    <div class="section-heading-wrap">
+                        <div class="section-kicker">
+                            Dạng toán 1
+                        </div>
+
+                        <h2>
+                            Đạo hàm riêng cấp 1
+                        </h2>
+
+                        <p class="section-lead">
+                            Tính đạo hàm theo từng biến, trong khi
+                            xem biến còn lại là hằng số.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    \[
+                        f_x(x,y)
+                        =
+                        \frac{\partial f}{\partial x},
+                        \qquad
+                        f_y(x,y)
+                        =
+                        \frac{\partial f}{\partial y}
+                    \]
+                </div>
+
+                <h3 class="subheading">
+                    Quy trình thực hiện
+                </h3>
+
+                <ol class="steps">
+                    <li class="step">
+                        <span class="step-number">1</span>
+
+                        <div class="step-content">
+                            <strong>Xác định biến cần đạo hàm.</strong>
+
+                            <p>
+                                Tính \(f_x\) thì đạo hàm theo \(x\);
+                                tính \(f_y\) thì đạo hàm theo \(y\).
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <span class="step-number">2</span>
+
+                        <div class="step-content">
+                            <strong>
+                                Xem biến còn lại là hằng số.
+                            </strong>
+
+                            <p>
+                                Ví dụ, khi tính \(f_x\), biểu thức
+                                \(y^2\) được xem như một hằng số.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <span class="step-number">3</span>
+
+                        <div class="step-content">
+                            <strong>
+                                Rút gọn và kiểm tra kết quả.
+                            </strong>
+
+                            <p>
+                                Chú ý quy tắc tích, thương và hàm hợp
+                                nếu biểu thức phức tạp.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+
+                <article class="example">
+                    <div class="example-header">
+                        <h3 class="example-title">
+                            Ví dụ 1
+                        </h3>
+
+                        <span class="tag">
+                            Đa thức
+                        </span>
+                    </div>
+
+                    <p>
+                        Cho
+                        \[
+                            f(x,y)=x^3y+2xy^2-5y.
+                        \]
+                        Tính \(f_x\) và \(f_y\).
+                    </p>
+
+                    <button
+                        class="solution-toggle"
+                        type="button"
+                        data-target="solution-1"
+                        aria-expanded="false"
+                    >
+                        Xem lời giải
+                    </button>
+
+                    <div
+                        class="example-solution"
+                        id="solution-1"
+                    >
+                        <p>
+                            Khi đạo hàm theo \(x\), xem \(y\) là
+                            hằng số:
+                        </p>
+
+                        \[
+                            f_x=3x^2y+2y^2.
+                        \]
+
+                        <p>
+                            Khi đạo hàm theo \(y\), xem \(x\) là
+                            hằng số:
+                        </p>
+
+                        \[
+                            f_y=x^3+4xy-5.
+                        \]
+                    </div>
+                </article>
+
+                <article class="example">
+                    <div class="example-header">
+                        <h3 class="example-title">
+                            Ví dụ 2
+                        </h3>
+
+                        <span class="tag">
+                            Hàm hợp
+                        </span>
+                    </div>
+
+                    <p>
+                        Cho
+                        \[
+                            f(x,y)=e^{xy}+\ln(x+y),
+                            \qquad x+y>0.
+                        \]
+                        Tính \(f_x\), \(f_y\).
+                    </p>
+
+                    <button
+                        class="solution-toggle"
+                        type="button"
+                        data-target="solution-2"
+                        aria-expanded="false"
+                    >
+                        Xem lời giải
+                    </button>
+
+                    <div
+                        class="example-solution"
+                        id="solution-2"
+                    >
+                        \[
+                            f_x
+                            =
+                            y e^{xy}
+                            +
+                            \frac{1}{x+y},
+                        \]
+
+                        \[
+                            f_y
+                            =
+                            x e^{xy}
+                            +
+                            \frac{1}{x+y}.
+                        \]
+                    </div>
+                </article>
+
+                <div class="memory-box">
+                    <div class="memory-icon" aria-hidden="true">
+                        ✓
+                    </div>
+
+                    <div>
+                        <h3>Tự kiểm tra</h3>
+
+                        <p>
+                            Trong \(f(x,y)=x^2y^3\), ta có
+                            \(f_x=2xy^3\) và \(f_y=3x^2y^2\).
+                            Biến không được chọn vẫn xuất hiện trong
+                            kết quả như một hệ số.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- =================================================
+                 ĐẠO HÀM RIÊNG CẤP 2
+            ================================================== -->
+            <section
+                class="section"
+                id="dao-ham-rieng-cap-2"
+            >
+                <div class="section-header">
+                    <div class="section-index">03</div>
+
+                    <div class="section-heading-wrap">
+                        <div class="section-kicker">
+                            Dạng toán 2
+                        </div>
+
+                        <h2>
+                            Đạo hàm riêng cấp 2
+                        </h2>
+
+                        <p class="section-lead">
+                            Tiếp tục lấy đạo hàm riêng từ các đạo hàm
+                            cấp 1 đã tìm được.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="learning-grid">
+                    <article class="learning-card">
+                        <h3>Đạo hàm riêng thuần</h3>
+
+                        <div class="formula-box">
+                            \[
+                                f_{xx}
+                                =
+                                \frac{\partial}{\partial x}
+                                \left(f_x\right),
+                                \qquad
+                                f_{yy}
+                                =
+                                \frac{\partial}{\partial y}
+                                \left(f_y\right)
+                            \]
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <h3>Đạo hàm riêng hỗn hợp</h3>
+
+                        <div class="formula-box blue">
+                            \[
+                                f_{xy}
+                                =
+                                \frac{\partial}{\partial y}
+                                \left(f_x\right),
+                                \qquad
+                                f_{yx}
+                                =
+                                \frac{\partial}{\partial x}
+                                \left(f_y\right)
+                            \]
+                        </div>
+                    </article>
+                </div>
+
+                <div class="memory-box">
+                    <div class="memory-icon" aria-hidden="true">
+                        ↔
+                    </div>
+
+                    <div>
+                        <h3>Đạo hàm hỗn hợp</h3>
+
+                        <p>
+                            Với các hàm đủ trơn thường gặp trong bài
+                            tập, ta có
+                            \[
+                                f_{xy}=f_{yx}.
+                            \]
+                            Tuy nhiên, vẫn nên tính đúng theo thứ tự
+                            ký hiệu để tránh nhầm lẫn.
+                        </p>
+                    </div>
+                </div>
+
+                <article class="example">
+                    <div class="example-header">
+                        <h3 class="example-title">
+                            Ví dụ 3
+                        </h3>
+
+                        <span class="tag">
+                            Đạo hàm cấp 2
+                        </span>
+                    </div>
+
+                    <p>
+                        Cho
+                        \[
+                            f(x,y)=x^3y^2+2x^2y-4y^2.
+                        \]
+                        Tính các đạo hàm riêng cấp 2.
+                    </p>
+
+                    <button
+                        class="solution-toggle"
+                        type="button"
+                        data-target="solution-3"
+                        aria-expanded="false"
+                    >
+                        Xem lời giải
+                    </button>
+
+                    <div
+                        class="example-solution"
+                        id="solution-3"
+                    >
+                        <p>Trước hết:</p>
+
+                        \[
+                            f_x=3x^2y^2+4xy,
+                            \qquad
+                            f_y=2x^3y+2x^2-8y.
+                        \]
+
+                        <p>Tiếp tục đạo hàm:</p>
+
+                        \[
+                            f_{xx}=6xy^2+4y,
+                        \]
+
+                        \[
+                            f_{xy}=6x^2y+4x,
+                        \]
+
+                        \[
+                            f_{yx}=6x^2y+4x,
+                        \]
+
+                        \[
+                            f_{yy}=2x^3-8.
+                        \]
+                    </div>
+                </article>
+            </section>
+
+
+            <!-- =================================================
+                 VI PHÂN CẤP 1
+            ================================================== -->
+            <section class="section" id="vi-phan-cap-1">
+                <div class="section-header">
+                    <div class="section-index">04</div>
+
+                    <div class="section-heading-wrap">
+                        <div class="section-kicker">
+                            Dạng toán 3
+                        </div>
+
+                        <h2>
+                            Vi phân cấp 1
+                        </h2>
+
+                        <p class="section-lead">
+                            Vi phân cấp 1 được lập trực tiếp từ hai
+                            đạo hàm riêng cấp 1.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="formula-box orange">
+                    \[
+                        \boxed{
+                            dz
+                            =
+                            f_x(x,y)\,dx
+                            +
+                            f_y(x,y)\,dy
+                        }
+                    \]
+                </div>
+
+                <h3 class="subheading">
+                    Cách lập vi phân
+                </h3>
+
+                <ol class="steps">
+                    <li class="step">
+                        <span class="step-number">1</span>
+
+                        <div class="step-content">
+                            <strong>Tính \(f_x\) và \(f_y\).</strong>
+
+                            <p>
+                                Đây là bước quan trọng nhất.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <span class="step-number">2</span>
+
+                        <div class="step-content">
+                            <strong>
+                                Nhân \(f_x\) với \(dx\).
+                            </strong>
+
+                            <p>
+                                Thu được số hạng \(f_xdx\).
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <span class="step-number">3</span>
+
+                        <div class="step-content">
+                            <strong>
+                                Nhân \(f_y\) với \(dy\) rồi cộng lại.
+                            </strong>
+
+                            <p>
+                                Thu được \(dz=f_xdx+f_ydy\).
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+
+                <article class="example">
+                    <div class="example-header">
+                        <h3 class="example-title">
+                            Ví dụ 4
+                        </h3>
+
+                        <span class="tag">
+                            Vi phân cấp 1
+                        </span>
+                    </div>
+
+                    <p>
+                        Cho
+                        \[
+                            z=x^2y+\sin(xy).
+                        \]
+                        Tìm vi phân \(dz\).
+                    </p>
+
+                    <button
+                        class="solution-toggle"
+                        type="button"
+                        data-target="solution-4"
+                        aria-expanded="false"
+                    >
+                        Xem lời giải
+                    </button>
+
+                    <div
+                        class="example-solution"
+                        id="solution-4"
+                    >
+                        \[
+                            f_x
+                            =
+                            2xy+y\cos(xy),
+                        \]
+
+                        \[
+                            f_y
+                            =
+                            x^2+x\cos(xy).
+                        \]
+
+                        Do đó
+
+                        \[
+                            \boxed{
+                                dz
+                                =
+                                \left(2xy+y\cos(xy)\right)dx
+                                +
+                                \left(x^2+x\cos(xy)\right)dy
+                            }.
+                        \]
+                    </div>
+                </article>
+
+                <div class="memory-box">
+                    <div class="memory-icon" aria-hidden="true">
+                        ≈
+                    </div>
+
+                    <div>
+                        <h3>Ứng dụng xấp xỉ</h3>
+
+                        <p>
+                            Khi \(\Delta x,\Delta y\) nhỏ,
+                            \[
+                                \Delta z
+                                \approx
+                                dz
+                                =
+                                f_x\Delta x+f_y\Delta y.
+                            \]
+                            Đây là cách ước lượng nhanh độ thay đổi
+                            của hàm số.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- =================================================
+                 VI PHÂN CẤP 2
+            ================================================== -->
+            <section class="section" id="vi-phan-cap-2">
+                <div class="section-header">
+                    <div class="section-index">05</div>
+
+                    <div class="section-heading-wrap">
+                        <div class="section-kicker">
+                            Dạng toán 4
+                        </div>
+
+                        <h2>
+                            Vi phân cấp 2
+                        </h2>
+
+                        <p class="section-lead">
+                            Vi phân cấp 2 được xây dựng từ các đạo
+                            hàm riêng cấp 2.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="formula-box purple">
+                    \[
+                        \boxed{
+                            d^2z
+                            =
+                            f_{xx}\,dx^2
+                            +
+                            2f_{xy}\,dx\,dy
+                            +
+                            f_{yy}\,dy^2
+                        }
+                    \]
+                </div>
+
+                <div class="memory-box">
+                    <div class="memory-icon" aria-hidden="true">
+                        2
+                    </div>
+
+                    <div>
+                        <h3>Điểm dễ nhầm</h3>
+
+                        <p>
+                            Số hạng hỗn hợp là
+                            \[
+                                2f_{xy}\,dx\,dy.
+                            \]
+                            Không được quên hệ số \(2\).
+                        </p>
+                    </div>
+                </div>
+
+                <article class="example">
+                    <div class="example-header">
+                        <h3 class="example-title">
+                            Ví dụ 5
+                        </h3>
+
+                        <span class="tag">
+                            Vi phân cấp 2
+                        </span>
+                    </div>
+
+                    <p>
+                        Cho
+                        \[
+                            z=x^3+2x^2y+xy^2+y^3.
+                        \]
+                        Tính \(d^2z\).
+                    </p>
+
+                    <button
+                        class="solution-toggle"
+                        type="button"
+                        data-target="solution-5"
+                        aria-expanded="false"
+                    >
+                        Xem lời giải
+                    </button>
+
+                    <div
+                        class="example-solution"
+                        id="solution-5"
+                    >
+                        <p>Các đạo hàm riêng cấp 2:</p>
+
+                        \[
+                            f_{xx}=6x+4y,
+                        \]
+
+                        \[
+                            f_{xy}=4x+2y,
+                        \]
+
+                        \[
+                            f_{yy}=2x+6y.
+                        \]
+
+                        Vì vậy
+
+                        \[
+                            \boxed{
+                                d^2z
+                                =
+                                (6x+4y)dx^2
+                                +
+                                2(4x+2y)dx\,dy
+                                +
+                                (2x+6y)dy^2
+                            }.
+                        \]
+                    </div>
+                </article>
+            </section>
+
+
+            <!-- =================================================
+                 CỰC TRỊ
+            ================================================== -->
+            <section class="section" id="cuc-tri">
+                <div class="section-header">
+                    <div class="section-index">06</div>
+
+                    <div class="section-heading-wrap">
+                        <div class="section-kicker">
+                            Dạng toán 5
+                        </div>
+
+                        <h2>
+                            Cực trị tự do của hàm hai biến
+                        </h2>
+
+                        <p class="section-lead">
+                            Không có điều kiện ràng buộc giữa \(x\)
+                            và \(y\).
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="subheading">
+                    Bước 1. Tìm điểm dừng
+                </h3>
+
+                <div class="formula-box">
+                    \[
+                        \begin{cases}
+                            f_x(x,y)=0,\\
+                            f_y(x,y)=0.
+                        \end{cases}
+                    \]
+
+                    Nghiệm \((x_0,y_0)\) của hệ được gọi là
+                    <strong>điểm dừng</strong>.
+                </div>
+
+                <h3 class="subheading">
+                    Bước 2. Tính biệt thức Hessian
+                </h3>
+
+                <div class="formula-box blue">
+                    \[
+                        D
+                        =
+                        f_{xx}(x_0,y_0)
+                        f_{yy}(x_0,y_0)
+                        -
+                        \left[
+                            f_{xy}(x_0,y_0)
+                        \right]^2
+                    \]
+                </div>
+
+                <h3 class="subheading">
+                    Bước 3. Phân loại điểm dừng
+                </h3>
+
+                <div class="classification-grid">
+                    <article class="classification-card minimum">
+                        <h3>Cực tiểu</h3>
+
+                        <p>
+                            Nếu \(D>0\) và \(f_{xx}>0\).
+                        </p>
+
+                        <p>
+                            Bề mặt có dạng “lòng chảo” gần điểm dừng.
+                        </p>
+                    </article>
+
+                    <article class="classification-card maximum">
+                        <h3>Cực đại</h3>
+
+                        <p>
+                            Nếu \(D>0\) và \(f_{xx}<0\).
+                        </p>
+
+                        <p>
+                            Bề mặt có dạng “đỉnh đồi” gần điểm dừng.
+                        </p>
+                    </article>
+
+                    <article class="classification-card saddle">
+                        <h3>Điểm yên ngựa</h3>
+
+                        <p>
+                            Nếu \(D<0\).
+                        </p>
+
+                        <p>
+                            Hàm tăng theo một hướng và giảm theo hướng khác.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="memory-box">
+                    <div class="memory-icon" aria-hidden="true">
+                        ?
+                    </div>
+
+                    <div>
+                        <h3>Trường hợp chưa kết luận</h3>
+
+                        <p>
+                            Nếu \(D=0\), tiêu chuẩn trên chưa đủ để
+                            kết luận. Cần dùng phương pháp khác hoặc
+                            khảo sát trực tiếp.
+                        </p>
+                    </div>
+                </div>
+
+                <article class="example">
+                    <div class="example-header">
+                        <h3 class="example-title">
+                            Ví dụ 6
+                        </h3>
+
+                        <span class="tag">
+                            Cực tiểu
+                        </span>
+                    </div>
+
+                    <p>
+                        Tìm cực trị của
+                        \[
+                            f(x,y)=x^2+y^2-4x+6y+10.
+                        \]
+                    </p>
+
+                    <button
+                        class="solution-toggle"
+                        type="button"
+                        data-target="solution-6"
+                        aria-expanded="false"
+                    >
+                        Xem lời giải
+                    </button>
+
+                    <div
+                        class="example-solution"
+                        id="solution-6"
+                    >
+                        <p>Tìm điểm dừng:</p>
+
+                        \[
+                            f_x=2x-4,
+                            \qquad
+                            f_y=2y+6.
+                        \]
+
+                        \[
+                            \begin{cases}
+                                2x-4=0,\\
+                                2y+6=0
+                            \end{cases}
+                            \Longrightarrow
+                            (x,y)=(2,-3).
+                        \]
+
+                        <p>Các đạo hàm riêng cấp 2:</p>
+
+                        \[
+                            f_{xx}=2,
+                            \qquad
+                            f_{yy}=2,
+                            \qquad
+                            f_{xy}=0.
+                        \]
+
+                        \[
+                            D=2\cdot 2-0^2=4>0,
+                            \qquad
+                            f_{xx}=2>0.
+                        \]
+
+                        Do đó hàm đạt cực tiểu tại \((2,-3)\).
+
+                        \[
+                            f(2,-3)=-3.
+                        \]
+
+                        Vậy giá trị cực tiểu là
+
+                        \[
+                            \boxed{f_{\min}=-3}.
+                        \]
+                    </div>
+                </article>
+
+                <article class="example">
+                    <div class="example-header">
+                        <h3 class="example-title">
+                            Ví dụ 7
+                        </h3>
+
+                        <span class="tag">
+                            Điểm yên ngựa
+                        </span>
+                    </div>
+
+                    <p>
+                        Xét cực trị của
+                        \[
+                            f(x,y)=x^2-y^2.
+                        \]
+                    </p>
+
+                    <button
+                        class="solution-toggle"
+                        type="button"
+                        data-target="solution-7"
+                        aria-expanded="false"
+                    >
+                        Xem lời giải
+                    </button>
+
+                    <div
+                        class="example-solution"
+                        id="solution-7"
+                    >
+                        \[
+                            f_x=2x,
+                            \qquad
+                            f_y=-2y.
+                        \]
+
+                        Điểm dừng duy nhất là \((0,0)\).
+
+                        \[
+                            f_{xx}=2,
+                            \qquad
+                            f_{yy}=-2,
+                            \qquad
+                            f_{xy}=0.
+                        \]
+
+                        \[
+                            D=2(-2)-0^2=-4<0.
+                        \]
+
+                        Do đó \((0,0)\) là điểm yên ngựa,
+                        không phải điểm cực trị.
+                    </div>
+                </article>
+            </section>
+
+
+            <!-- =================================================
+                 LUYỆN TẬP
+            ================================================== -->
+            <section class="section" id="luyen-tap">
+                <div class="section-header">
+                    <div class="section-index">07</div>
+
+                    <div class="section-heading-wrap">
+                        <div class="section-kicker">
+                            Củng cố
+                        </div>
+
+                        <h2>
+                            Luyện tập và chấm điểm
+                        </h2>
+
+                        <p class="section-lead">
+                            Bài tập gồm câu trắc nghiệm, đúng – sai
+                            và điền đáp án ngắn.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="quiz-intro">
+                    <div>
+                        <h3>
+                            Bài luyện tập tổng hợp
+                        </h3>
+
+                        <p>
+                            Mỗi câu đúng được tính 1 điểm. Nhấn
+                            “Nộp bài” để xem điểm và lời giải chi tiết.
+                        </p>
+                    </div>
+
+                    <div
+                        class="quiz-summary-mini"
+                        id="quizStatus"
+                    >
+                        0/15 câu
+                    </div>
+                </div>
+
+                <div class="quiz-toolbar">
+                    <div
+                        class="quiz-filter"
+                        role="group"
+                        aria-label="Lọc câu hỏi"
+                    >
+                        <button
+                            class="filter-button active"
+                            type="button"
+                            data-filter="all"
+                        >
+                            Tất cả
+                        </button>
+
+                        <button
+                            class="filter-button"
+                            type="button"
+                            data-filter="Đạo hàm cấp 1"
+                        >
+                            Cấp 1
+                        </button>
+
+                        <button
+                            class="filter-button"
+                            type="button"
+                            data-filter="Đạo hàm cấp 2"
+                        >
+                            Cấp 2
+                        </button>
+
+                        <button
+                            class="filter-button"
+                            type="button"
+                            data-filter="Vi phân"
+                        >
+                            Vi phân
+                        </button>
+
+                        <button
+                            class="filter-button"
+                            type="button"
+                            data-filter="Cực trị"
+                        >
+                            Cực trị
+                        </button>
+                    </div>
+
+                    <span
+                        style="
+                            color: var(--text-muted);
+                            font-size: 0.82rem;
+                        "
+                    >
+                        Đáp án được lưu tự động
+                    </span>
+                </div>
+
+                <div
+                    class="questions-container"
+                    id="questionsContainer"
+                ></div>
+
+                <div class="quiz-actions">
+                    <button
+                        class="action-button shuffle"
+                        id="shuffleButton"
+                        type="button"
+                    >
+                        ↻ Đảo thứ tự câu
+                    </button>
+
+                    <button
+                        class="action-button submit"
+                        id="submitButton"
+                        type="button"
+                    >
+                        ✓ Nộp bài và chấm điểm
+                    </button>
+
+                    <button
+                        class="action-button reset"
+                        id="resetButton"
+                        type="button"
+                    >
+                        × Làm lại bài
+                    </button>
+                </div>
+
+                <div
+                    class="result-panel"
+                    id="resultPanel"
+                    aria-live="polite"
+                >
+                    <div
+                        class="score-ring"
+                        id="scoreRing"
+                    >
+                        <div
+                            class="score-ring-inner"
+                            id="scoreText"
+                        >
+                            0/15
+                        </div>
+                    </div>
+
+                    <h3
+                        class="result-title"
+                        id="resultTitle"
+                    >
+                        Kết quả bài làm
+                    </h3>
+
+                    <p
+                        class="result-message"
+                        id="resultMessage"
+                    ></p>
+
+                    <div class="result-details">
+                        <div class="result-stat">
+                            <span
+                                class="result-stat-value"
+                                id="correctCount"
+                            >
+                                0
+                            </span>
+
+                            <span class="result-stat-label">
+                                Câu đúng
+                            </span>
+                        </div>
+
+                        <div class="result-stat">
+                            <span
+                                class="result-stat-value"
+                                id="incorrectCount"
+                            >
+                                0
+                            </span>
+
+                            <span class="result-stat-label">
+                                Câu chưa đúng
+                            </span>
+                        </div>
+
+                        <div class="result-stat">
+                            <span
+                                class="result-stat-value"
+                                id="scorePercent"
+                            >
+                                0%
+                            </span>
+
+                            <span class="result-stat-label">
+                                Tỷ lệ hoàn thành
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- =================================================
+                 FOOTER
+            ================================================== -->
+            <footer class="footer">
+                <p>
+                    <strong>
+                        Bài học: Đạo hàm – Vi phân hàm hai biến
+                    </strong>
+                </p>
+
+                <p>
+                    Tác giả:
+                    <strong>Giảng viên Nguyễn Đức Ánh</strong>
+                </p>
+
+                <p>
+                    Nội dung phục vụ học tập và ôn luyện Toán cao cấp.
+                </p>
+            </footer>
+        </main>
+    </div>
+
+
+    <!-- NÚT LÊN ĐẦU TRANG -->
+    <button
+        class="back-to-top"
+        id="backToTop"
+        type="button"
+        title="Lên đầu trang"
+        aria-label="Lên đầu trang"
+    >
+        ↑
+    </button>
+
+
+    <script>
+        /* =========================================================
+           1. DỮ LIỆU BÀI TẬP
+        ========================================================= */
+
+        const quizQuestions = [
+            {
+                id: 1,
+                topic: "Đạo hàm cấp 1",
+                type: "choice",
+                question:
+                    "Cho $f(x,y)=x^2y+3xy^2$. Đạo hàm riêng $f_x$ bằng:",
+                options: [
+                    "$2xy+3y^2$",
+                    "$x^2+6xy$",
+                    "$2x+6y$",
+                    "$2xy+6xy$"
+                ],
+                answer: 0,
+                solution:
+                    "Xem $y$ là hằng số: " +
+                    "$\\dfrac{\\partial}{\\partial x}(x^2y)=2xy$ " +
+                    "và " +
+                    "$\\dfrac{\\partial}{\\partial x}(3xy^2)=3y^2$. " +
+                    "Vậy $f_x=2xy+3y^2$."
+            },
+
+            {
+                id: 2,
+                topic: "Đạo hàm cấp 1",
+                type: "choice",
+                question:
+                    "Cho $f(x,y)=x^2y+3xy^2$. Đạo hàm riêng $f_y$ bằng:",
+                options: [
+                    "$2xy+3y^2$",
+                    "$x^2+6xy$",
+                    "$2x^2+3xy$",
+                    "$x^2+3x$"
+                ],
+                answer: 1,
+                solution:
+                    "Xem $x$ là hằng số: " +
+                    "$\\dfrac{\\partial}{\\partial y}(x^2y)=x^2$ " +
+                    "và " +
+                    "$\\dfrac{\\partial}{\\partial y}(3xy^2)=6xy$. " +
+                    "Do đó $f_y=x^2+6xy$."
+            },
+
+            {
+                id: 3,
+                topic: "Đạo hàm cấp 1",
+                type: "choice",
+                question:
+                    "Với $f(x,y)=e^{xy}$, đạo hàm $f_x$ là:",
+                options: [
+                    "$xe^{xy}$",
+                    "$ye^{xy}$",
+                    "$e^x$",
+                    "$xye^{xy}$"
+                ],
+                answer: 1,
+                solution:
+                    "Dùng quy tắc hàm hợp: " +
+                    "$f_x=e^{xy}\\cdot\\dfrac{\\partial(xy)}{\\partial x}" +
+                    "=ye^{xy}$."
+            },
+
+            {
+                id: 4,
+                topic: "Đạo hàm cấp 1",
+                type: "truefalse",
+                question:
+                    "Cho $f(x,y)=\\sin(x+y)$. Khẳng định " +
+                    "$f_x=f_y=\\cos(x+y)$ là đúng hay sai?",
+                options: [
+                    "Đúng",
+                    "Sai"
+                ],
+                answer: 0,
+                solution:
+                    "Cả $x$ và $y$ đều có hệ số bằng 1 trong biểu thức $x+y$. " +
+                    "Do đó $f_x=f_y=\\cos(x+y)$."
+            },
+
+            {
+                id: 5,
+                topic: "Đạo hàm cấp 2",
+                type: "choice",
+                question:
+                    "Cho $f(x,y)=x^3y^2$. Đạo hàm $f_{xx}$ bằng:",
+                options: [
+                    "$3x^2y^2$",
+                    "$6xy^2$",
+                    "$6x^2y$",
+                    "$2x^3$"
+                ],
+                answer: 1,
+                solution:
+                    "$f_x=3x^2y^2$, tiếp tục đạo hàm theo $x$: " +
+                    "$f_{xx}=6xy^2$."
+            },
+
+            {
+                id: 6,
+                topic: "Đạo hàm cấp 2",
+                type: "choice",
+                question:
+                    "Cho $f(x,y)=x^2y^3$. Đạo hàm hỗn hợp $f_{xy}$ bằng:",
+                options: [
+                    "$6xy^2$",
+                    "$2xy^3$",
+                    "$3x^2y^2$",
+                    "$6x^2y$"
+                ],
+                answer: 0,
+                solution:
+                    "$f_x=2xy^3$. Đạo hàm tiếp theo theo $y$: " +
+                    "$f_{xy}=6xy^2$."
+            },
+
+            {
+                id: 7,
+                topic: "Đạo hàm cấp 2",
+                type: "truefalse",
+                question:
+                    "Với hàm đủ trơn trong các bài tập thông thường, " +
+                    "ta có thể sử dụng $f_{xy}=f_{yx}$.",
+                options: [
+                    "Đúng",
+                    "Sai"
+                ],
+                answer: 0,
+                solution:
+                    "Theo định lý về đạo hàm riêng hỗn hợp, nếu các đạo hàm " +
+                    "liên tục trong lân cận đang xét thì $f_{xy}=f_{yx}$."
+            },
+
+            {
+                id: 8,
+                topic: "Vi phân",
+                type: "choice",
+                question:
+                    "Cho $z=x^2+y^2$. Vi phân cấp 1 $dz$ là:",
+                options: [
+                    "$2x\\,dx+2y\\,dy$",
+                    "$x^2\\,dx+y^2\\,dy$",
+                    "$2x+2y$",
+                    "$2\\,dx+2\\,dy$"
+                ],
+                answer: 0,
+                solution:
+                    "$f_x=2x$, $f_y=2y$. Do đó " +
+                    "$dz=f_xdx+f_ydy=2x\\,dx+2y\\,dy$."
+            },
+
+            {
+                id: 9,
+                topic: "Vi phân",
+                type: "choice",
+                question:
+                    "Công thức đúng của vi phân cấp 2 là:",
+                options: [
+                    "$d^2z=f_{xx}dx^2+f_{xy}dxdy+f_{yy}dy^2$",
+                    "$d^2z=f_{xx}dx^2+2f_{xy}dxdy+f_{yy}dy^2$",
+                    "$d^2z=f_xdx+f_ydy$",
+                    "$d^2z=f_{xx}+f_{yy}$"
+                ],
+                answer: 1,
+                solution:
+                    "Công thức cần nhớ là " +
+                    "$d^2z=f_{xx}dx^2+2f_{xy}dxdy+f_{yy}dy^2$. " +
+                    "Số hạng hỗn hợp có hệ số 2."
+            },
+
+            {
+                id: 10,
+                topic: "Vi phân",
+                type: "truefalse",
+                question:
+                    "Trong công thức vi phân cấp 2, số hạng hỗn hợp " +
+                    "luôn được viết là $2f_{xy}dxdy$ đối với hàm đủ trơn.",
+                options: [
+                    "Đúng",
+                    "Sai"
+                ],
+                answer: 0,
+                solution:
+                    "Đúng. Hai số hạng $f_{xy}dxdy$ và $f_{yx}dydx$ " +
+                    "được gộp thành $2f_{xy}dxdy$ khi $f_{xy}=f_{yx}$."
+            },
+
+            {
+                id: 11,
+                topic: "Cực trị",
+                type: "choice",
+                question:
+                    "Điểm dừng của hàm $f(x,y)=x^2+y^2-2x-4y$ là:",
+                options: [
+                    "$(0,0)$",
+                    "$(1,2)$",
+                    "$(-1,-2)$",
+                    "$(2,4)$"
+                ],
+                answer: 1,
+                solution:
+                    "$f_x=2x-2=0\\Rightarrow x=1$; " +
+                    "$f_y=2y-4=0\\Rightarrow y=2$. " +
+                    "Điểm dừng là $(1,2)$."
+            },
+
+            {
+                id: 12,
+                topic: "Cực trị",
+                type: "choice",
+                question:
+                    "Tại điểm dừng, nếu $D>0$ và $f_{xx}>0$ thì điểm đó là:",
+                options: [
+                    "Điểm cực đại",
+                    "Điểm cực tiểu",
+                    "Điểm yên ngựa",
+                    "Chưa thể kết luận trong mọi trường hợp"
+                ],
+                answer: 1,
+                solution:
+                    "Tiêu chuẩn Hessian: $D>0$, $f_{xx}>0$ " +
+                    "thì hàm đạt cực tiểu tại điểm dừng."
+            },
+
+            {
+                id: 13,
+                topic: "Cực trị",
+                type: "choice",
+                question:
+                    "Tại điểm dừng, nếu $D<0$ thì điểm đó là:",
+                options: [
+                    "Điểm cực đại",
+                    "Điểm cực tiểu",
+                    "Điểm yên ngựa",
+                    "Điểm cực trị không xác định"
+                ],
+                answer: 2,
+                solution:
+                    "Nếu $D<0$ thì điểm dừng là điểm yên ngựa, " +
+                    "không phải điểm cực trị."
+            },
+
+            {
+                id: 14,
+                topic: "Cực trị",
+                type: "number",
+                question:
+                    "Cho $f(x,y)=x^2+y^2-4x+2y$. " +
+                    "Điểm dừng có hoành độ bằng bao nhiêu?",
+                answer: 2,
+                tolerance: 0.0001,
+                placeholder: "Nhập một số, ví dụ: 2",
+                solution:
+                    "$f_x=2x-4$. Giải $2x-4=0$ được $x=2$."
+            },
+
+            {
+                id: 15,
+                topic: "Cực trị",
+                type: "number",
+                question:
+                    "Với $f(x,y)=x^2-y^2$, giá trị " +
+                    "$D=f_{xx}f_{yy}-f_{xy}^2$ bằng bao nhiêu?",
+                answer: -4,
+                tolerance: 0.0001,
+                placeholder: "Nhập một số, ví dụ: -4",
+                solution:
+                    "$f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$. " +
+                    "Vì vậy $D=2(-2)-0^2=-4$."
+            }
+        ];
+
+
+        /* =========================================================
+           2. BIẾN TRẠNG THÁI
+        ========================================================= */
+
+        const STORAGE_KEY =
+            "dao-ham-vi-phan-hai-bien-nguyen-duc-anh";
+
+        let currentQuestions = [...quizQuestions];
+        let currentFilter = "all";
+        let submitted = false;
+
+
+        /* =========================================================
+           3. TRUY CẬP PHẦN TỬ
+        ========================================================= */
+
+        const questionsContainer =
+            document.getElementById("questionsContainer");
+
+        const quizStatus =
+            document.getElementById("quizStatus");
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+        const resetButton =
+            document.getElementById("resetButton");
+
+        const shuffleButton =
+            document.getElementById("shuffleButton");
+
+        const resultPanel =
+            document.getElementById("resultPanel");
+
+        const scoreRing =
+            document.getElementById("scoreRing");
+
+        const scoreText =
+            document.getElementById("scoreText");
+
+        const resultTitle =
+            document.getElementById("resultTitle");
+
+        const resultMessage =
+            document.getElementById("resultMessage");
+
+        const correctCount =
+            document.getElementById("correctCount");
+
+        const incorrectCount =
+            document.getElementById("incorrectCount");
+
+        const scorePercent =
+            document.getElementById("scorePercent");
+
+
+        /* =========================================================
+           4. TIỆN ÍCH
+        ========================================================= */
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function shuffleArray(array) {
+            const copied = [...array];
+
+            for (
+                let index = copied.length - 1;
+                index > 0;
+                index--
+            ) {
+                const randomIndex =
+                    Math.floor(Math.random() * (index + 1));
+
+                [
+                    copied[index],
+                    copied[randomIndex]
+                ] = [
+                    copied[randomIndex],
+                    copied[index]
+                ];
+            }
+
+            return copied;
+        }
+
+        function typesetMath() {
+            if (
+                window.MathJax &&
+                typeof window.MathJax.typesetPromise === "function"
+            ) {
+                window.MathJax
+                    .typesetPromise()
+                    .catch((error) => {
+                        console.warn(
+                            "MathJax không thể hiển thị một số công thức.",
+                            error
+                        );
+                    });
+            }
+        }
+
+        function getSavedData() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+
+                if (!raw) {
+                    return {
+                        answers: {},
+                        settings: {}
+                    };
+                }
+
+                const parsed = JSON.parse(raw);
+
+                return {
+                    answers: parsed.answers || {},
+                    settings: parsed.settings || {}
+                };
+            } catch (error) {
+                console.warn(
+                    "Không thể đọc dữ liệu đã lưu.",
+                    error
+                );
+
+                return {
+                    answers: {},
+                    settings: {}
+                };
+            }
+        }
+
+        function saveData(data) {
+            try {
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(data)
+                );
+            } catch (error) {
+                console.warn(
+                    "Không thể lưu dữ liệu trên trình duyệt.",
+                    error
+                );
+            }
+        }
+
+        function saveAnswers() {
+            const data = getSavedData();
+            data.answers = collectAnswers();
+            saveData(data);
+        }
+
+        function collectAnswers() {
+            const answers = {};
+
+            quizQuestions.forEach((question) => {
+                if (
+                    question.type === "choice" ||
+                    question.type === "truefalse"
+                ) {
+                    const selected =
+                        document.querySelector(
+                            `input[name="question-${question.id}"]:checked`
+                        );
+
+                    if (selected) {
+                        answers[question.id] =
+                            Number(selected.value);
+                    }
+                }
+
+                if (question.type === "number") {
+                    const input =
+                        document.getElementById(
+                            `answer-${question.id}`
+                        );
+
+                    if (
+                        input &&
+                        input.value.trim() !== ""
+                    ) {
+                        answers[question.id] =
+                            input.value.trim();
+                    }
+                }
+            });
+
+            return answers;
+        }
+
+        function countAnswered() {
+            const answers = collectAnswers();
+
+            return Object.keys(answers).length;
+        }
+
+        function updateQuizStatus() {
+            const answered = countAnswered();
+
+            quizStatus.textContent =
+                `${answered}/${quizQuestions.length} câu`;
+        }
+
+
+        /* =========================================================
+           5. HIỂN THỊ BÀI TẬP
+        ========================================================= */
+
+        function renderQuestions() {
+            const savedData = getSavedData();
+            const savedAnswers = savedData.answers || {};
+
+            const visibleQuestions =
+                currentFilter === "all"
+                    ? currentQuestions
+                    : currentQuestions.filter(
+                        (question) =>
+                            question.topic === currentFilter
+                    );
+
+            questionsContainer.innerHTML =
+                visibleQuestions
+                    .map((question, visibleIndex) => {
+                        const globalPosition =
+                            currentQuestions.findIndex(
+                                (item) => item.id === question.id
+                            ) + 1;
+
+                        let answerHtml = "";
+
+                        if (
+                            question.type === "choice" ||
+                            question.type === "truefalse"
+                        ) {
+                            answerHtml = `
+                                <div class="options">
+                                    ${question.options
+                                        .map(
+                                            (
+                                                option,
+                                                optionIndex
+                                            ) => {
+                                                const isChecked =
+                                                    Number(
+                                                        savedAnswers[
+                                                            question.id
+                                                        ]
+                                                    ) ===
+                                                    optionIndex;
+
+                                                return `
+                                                    <label class="option">
+                                                        <input
+                                                            type="radio"
+                                                            name="question-${question.id}"
+                                                            value="${optionIndex}"
+                                                            ${
+                                                                isChecked
+                                                                    ? "checked"
+                                                                    : ""
+                                                            }
+                                                        >
+
+                                                        <span>
+                                                            ${option}
+                                                        </span>
+                                                    </label>
+                                                `;
+                                            }
+                                        )
+                                        .join("")}
+                                </div>
+                            `;
+                        }
+
+                        if (question.type === "number") {
+                            const savedValue =
+                                savedAnswers[question.id] ?? "";
+
+                            answerHtml = `
+                                <div class="short-answer-wrap">
+                                    <input
+                                        class="short-answer-input"
+                                        id="answer-${question.id}"
+                                        type="text"
+                                        inputmode="decimal"
+                                        autocomplete="off"
+                                        value="${escapeHtml(savedValue)}"
+                                        placeholder="${escapeHtml(
+                                            question.placeholder ||
+                                            "Nhập đáp án"
+                                        )}"
+                                        aria-label="Đáp án câu ${globalPosition}"
+                                    >
+
+                                    <span class="answer-note">
+                                        Có thể dùng dấu chấm hoặc dấu phẩy
+                                        làm dấu thập phân.
+                                    </span>
+                                </div>
+                            `;
+                        }
+
+                        return `
+                            <article
+                                class="question-card"
+                                id="question-card-${question.id}"
+                                data-topic="${escapeHtml(
+                                    question.topic
+                                )}"
+                            >
+                                <div class="question-topline">
+                                    <p class="question-number">
+                                        Câu ${globalPosition}
+                                    </p>
+
+                                    <span class="question-topic">
+                                        ${escapeHtml(question.topic)}
+                                    </span>
+                                </div>
+
+                                <div class="question-text">
+                                    ${question.question}
+                                </div>
+
+                                ${answerHtml}
+
+                                <div
+                                    class="question-feedback"
+                                    id="feedback-${question.id}"
+                                ></div>
+                            </article>
+                        `;
+                    })
+                    .join("");
+
+            bindQuestionEvents();
+            updateQuizStatus();
+
+            if (submitted) {
+                gradeQuiz(false);
+            }
+
+            typesetMath();
+        }
+
+        function bindQuestionEvents() {
+            const inputs =
+                questionsContainer.querySelectorAll(
+                    "input"
+                );
+
+            inputs.forEach((input) => {
+                input.addEventListener("change", () => {
+                    submitted = false;
+                    resultPanel.classList.remove("show");
+
+                    document
+                        .querySelectorAll(".question-card")
+                        .forEach((card) => {
+                            card.classList.remove(
+                                "correct",
+                                "incorrect"
+                            );
+                        });
+
+                    document
+                        .querySelectorAll(".question-feedback")
+                        .forEach((feedback) => {
+                            feedback.classList.remove("show");
+                        });
+
+                    saveAnswers();
+                    updateQuizStatus();
+                });
+
+                input.addEventListener("input", () => {
+                    submitted = false;
+                    resultPanel.classList.remove("show");
+
+                    saveAnswers();
+                    updateQuizStatus();
+                });
+            });
+        }
+
+
+        /* =========================================================
+           6. KIỂM TRA ĐÁP ÁN
+        ========================================================= */
+
+        function isQuestionCorrect(question, answer) {
+            if (
+                question.type === "choice" ||
+                question.type === "truefalse"
+            ) {
+                return Number(answer) === question.answer;
+            }
+
+            if (question.type === "number") {
+                if (
+                    answer === undefined ||
+                    answer === null ||
+                    String(answer).trim() === ""
+                ) {
+                    return false;
+                }
+
+                const normalized =
+                    String(answer)
+                        .trim()
+                        .replace(",", ".");
+
+                const numericAnswer =
+                    Number.parseFloat(normalized);
+
+                if (!Number.isFinite(numericAnswer)) {
+                    return false;
+                }
+
+                const tolerance =
+                    question.tolerance ?? 0.0001;
+
+                return (
+                    Math.abs(
+                        numericAnswer - question.answer
+                    ) <= tolerance
+                );
+            }
+
+            return false;
+        }
+
+        function getCorrectAnswerDisplay(question) {
+            if (
+                question.type === "choice" ||
+                question.type === "truefalse"
+            ) {
+                return question.options[question.answer];
+            }
+
+            if (question.type === "number") {
+                return String(question.answer);
+            }
+
+            return "";
+        }
+
+
+        /* =========================================================
+           7. CHẤM ĐIỂM
+        ========================================================= */
+
+        function gradeQuiz(
+            showResult = true
+        ) {
+            const answers = collectAnswers();
+
+            let correct = 0;
+
+            quizQuestions.forEach((question) => {
+                const card =
+                    document.getElementById(
+                        `question-card-${question.id}`
+                    );
+
+                const feedback =
+                    document.getElementById(
+                        `feedback-${question.id}`
+                    );
+
+                /*
+                 * Khi đang lọc câu hỏi, một số thẻ không có
+                 * trong DOM nên chỉ cập nhật các thẻ đang hiển thị.
+                 */
+                const answer =
+                    answers[question.id];
+
+                const isCorrect =
+                    isQuestionCorrect(question, answer);
+
+                if (isCorrect) {
+                    correct += 1;
+                }
+
+                if (!card || !feedback) {
+                    return;
+                }
+
+                card.classList.remove(
+                    "correct",
+                    "incorrect"
+                );
+
+                card.classList.add(
+                    isCorrect
+                        ? "correct"
+                        : "incorrect"
+                );
+
+                const statusText =
+                    isCorrect
+                        ? "Chính xác."
+                        : "Chưa chính xác.";
+
+                const answerText =
+                    getCorrectAnswerDisplay(question);
+
+                feedback.innerHTML = `
+                    <strong>${statusText}</strong>
+
+                    ${
+                        isCorrect
+                            ? ""
+                            : `
+                                <div>
+                                    Đáp án đúng:
+                                    ${answerText}
+                                </div>
+                            `
+                    }
+
+                    <div style="margin-top: 6px;">
+                        ${question.solution}
+                    </div>
+                `;
+
+                feedback.classList.add("show");
+            });
+
+            submitted = true;
+            saveAnswers();
+
+            if (!showResult) {
+                typesetMath();
+                return;
+            }
+
+            const total = quizQuestions.length;
+            const incorrect = total - correct;
+            const percent =
+                Math.round((correct / total) * 100);
+
+            const scoreAngle =
+                (percent / 100) * 360;
+
+            scoreRing.style.setProperty(
+                "--score-angle",
+                `${scoreAngle}deg`
+            );
+
+            scoreText.textContent =
+                `${correct}/${total}`;
+
+            correctCount.textContent =
+                String(correct);
+
+            incorrectCount.textContent =
+                String(incorrect);
+
+            scorePercent.textContent =
+                `${percent}%`;
+
+            let title = "";
+            let message = "";
+
+            if (percent >= 90) {
+                title = "Xuất sắc!";
+                message =
+                    "Bạn đã nắm rất vững các công thức và kỹ năng " +
+                    "tính toán của bài học.";
+            } else if (percent >= 75) {
+                title = "Kết quả tốt!";
+                message =
+                    "Bạn đã hiểu phần lớn nội dung. Hãy xem lại " +
+                    "những câu chưa đúng để hoàn thiện kỹ năng.";
+            } else if (percent >= 50) {
+                title = "Đã đạt mức cơ bản";
+                message =
+                    "Bạn đã nắm được một số nội dung chính. Nên " +
+                    "ôn lại công thức vi phân và tiêu chuẩn cực trị.";
+            } else {
+                title = "Cần ôn tập thêm";
+                message =
+                    "Hãy xem lại các ví dụ mẫu, đặc biệt là quy tắc " +
+                    "giữ cố định một biến khi tính đạo hàm riêng.";
+            }
+
+            resultTitle.textContent = title;
+            resultMessage.textContent = message;
+
+            resultPanel.classList.add("show");
+
+            resultPanel.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+            typesetMath();
+        }
+
+
+        /* =========================================================
+           8. LÀM LẠI VÀ ĐẢO CÂU
+        ========================================================= */
+
+        function resetQuiz() {
+            const accepted = window.confirm(
+                "Bạn có chắc muốn xóa toàn bộ đáp án và làm lại bài?"
+            );
+
+            if (!accepted) {
+                return;
+            }
+
+            const data = getSavedData();
+            data.answers = {};
+            saveData(data);
+
+            submitted = false;
+            resultPanel.classList.remove("show");
+
+            currentQuestions = [...quizQuestions];
+            currentFilter = "all";
+
+            document
+                .querySelectorAll(".filter-button")
+                .forEach((button) => {
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.filter === "all"
+                    );
+                });
+
+            renderQuestions();
+
+            document
+                .getElementById("luyen-tap")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+        }
+
+        function shuffleQuestions() {
+            currentQuestions =
+                shuffleArray(currentQuestions);
+
+            submitted = false;
+            resultPanel.classList.remove("show");
+
+            renderQuestions();
+        }
+
+
+        /* =========================================================
+           9. BỘ LỌC CÂU HỎI
+        ========================================================= */
+
+        document
+            .querySelectorAll(".filter-button")
+            .forEach((button) => {
+                button.addEventListener(
+                    "click",
+                    () => {
+                        currentFilter =
+                            button.dataset.filter;
+
+                        document
+                            .querySelectorAll(
+                                ".filter-button"
+                            )
+                            .forEach((item) => {
+                                item.classList.remove(
+                                    "active"
+                                );
+                            });
+
+                        button.classList.add("active");
+
+                        renderQuestions();
+                    }
+                );
+            });
+
+
+        /* =========================================================
+           10. NÚT XEM LỜI GIẢI VÍ DỤ
+        ========================================================= */
+
+        document
+            .querySelectorAll(".solution-toggle")
+            .forEach((button) => {
+                button.addEventListener("click", () => {
+                    const targetId =
+                        button.dataset.target;
+
+                    const target =
+                        document.getElementById(targetId);
+
+                    const isOpen =
+                        target.classList.toggle("open");
+
+                    button.textContent =
+                        isOpen
+                            ? "Ẩn lời giải"
+                            : "Xem lời giải";
+
+                    button.setAttribute(
+                        "aria-expanded",
+                        String(isOpen)
+                    );
+
+                    if (isOpen) {
+                        typesetMath();
+                    }
+                });
+            });
+
+
+        /* =========================================================
+           11. MỤC LỤC MOBILE
+        ========================================================= */
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+        const sidebarOverlay =
+            document.getElementById("sidebarOverlay");
+
+        function openSidebar() {
+            sidebar.classList.add("open");
+            sidebarOverlay.classList.add("show");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove("open");
+            sidebarOverlay.classList.remove("show");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            document.body.style.overflow = "";
+        }
+
+        menuButton.addEventListener("click", () => {
+            if (sidebar.classList.contains("open")) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+
+        sidebarOverlay.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+        document
+            .querySelectorAll(".nav-link")
+            .forEach((link) => {
+                link.addEventListener("click", () => {
+                    if (window.innerWidth <= 1020) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+        document.addEventListener("keydown", (event) => {
+            if (
+                event.key === "Escape" &&
+                sidebar.classList.contains("open")
+            ) {
+                closeSidebar();
+            }
+        });
+
+
+        /* =========================================================
+           12. ĐÁNH DẤU MỤC ĐANG XEM
+        ========================================================= */
+
+        const observedSections =
+            document.querySelectorAll(
+                "main section[id]"
+            );
+
+        const navLinks =
+            document.querySelectorAll(".nav-link");
+
+        const sectionObserver =
+            new IntersectionObserver(
+                (entries) => {
+                    const visibleEntries =
+                        entries
+                            .filter(
+                                (entry) =>
+                                    entry.isIntersecting
+                            )
+                            .sort(
+                                (a, b) =>
+                                    b.intersectionRatio -
+                                    a.intersectionRatio
+                            );
+
+                    if (visibleEntries.length === 0) {
+                        return;
+                    }
+
+                    const activeId =
+                        visibleEntries[0].target.id;
+
+                    navLinks.forEach((link) => {
+                        const href =
+                            link.getAttribute("href");
+
+                        link.classList.toggle(
+                            "active",
+                            href === `#${activeId}`
+                        );
+                    });
+                },
+                {
+                    root: null,
+                    rootMargin: "-18% 0px -62% 0px",
+                    threshold: [
+                        0.05,
+                        0.2,
+                        0.45
+                    ]
+                }
+            );
+
+        observedSections.forEach((section) => {
+            sectionObserver.observe(section);
+        });
+
+
+        /* =========================================================
+           13. TIẾN ĐỘ CUỘN TRANG
+        ========================================================= */
+
+        const progressFill =
+            document.getElementById("progressFill");
+
+        const progressText =
+            document.getElementById("progressText");
+
+        const progressTrack =
+            document.getElementById("progressTrack");
+
+        const backToTop =
+            document.getElementById("backToTop");
+
+        function updateReadingProgress() {
+            const scrollTop =
+                window.scrollY ||
+                document.documentElement.scrollTop;
+
+            const scrollHeight =
+                document.documentElement.scrollHeight -
+                window.innerHeight;
+
+            const progress =
+                scrollHeight > 0
+                    ? Math.min(
+                        100,
+                        Math.max(
+                            0,
+                            Math.round(
+                                (scrollTop / scrollHeight) *
+                                100
+                            )
+                        )
+                    )
+                    : 0;
+
+            progressFill.style.width =
+                `${progress}%`;
+
+            progressText.textContent =
+                `${progress}%`;
+
+            progressTrack.setAttribute(
+                "aria-valuenow",
+                String(progress)
+            );
+
+            backToTop.classList.toggle(
+                "show",
+                scrollTop > 550
+            );
+        }
+
+        window.addEventListener(
+            "scroll",
+            updateReadingProgress,
+            {
+                passive: true
+            }
+        );
+
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+
+        /* =========================================================
+           14. TRỢ NĂNG
+        ========================================================= */
+
+        const fontSizeButton =
+            document.getElementById("fontSizeButton");
+
+        const contrastButton =
+            document.getElementById("contrastButton");
+
+        function loadSettings() {
+            const data = getSavedData();
+            const settings = data.settings || {};
+
+            if (settings.largeText) {
+                document.body.classList.add(
+                    "large-text"
+                );
+            }
+
+            if (settings.highContrast) {
+                document.body.classList.add(
+                    "high-contrast"
+                );
+            }
+        }
+
+        function saveSettings() {
+            const data = getSavedData();
+
+            data.settings = {
+                largeText:
+                    document.body.classList.contains(
+                        "large-text"
+                    ),
+
+                highContrast:
+                    document.body.classList.contains(
+                        "high-contrast"
+                    )
+            };
+
+            saveData(data);
+        }
+
+        fontSizeButton.addEventListener("click", () => {
+            document.body.classList.toggle(
+                "large-text"
+            );
+
+            saveSettings();
+        });
+
+        contrastButton.addEventListener("click", () => {
+            document.body.classList.toggle(
+                "high-contrast"
+            );
+
+            saveSettings();
+        });
+
+
+        /* =========================================================
+           15. GẮN SỰ KIỆN CHO QUIZ
+        ========================================================= */
+
+        submitButton.addEventListener("click", () => {
+            gradeQuiz(true);
+        });
+
+        resetButton.addEventListener(
+            "click",
+            resetQuiz
+        );
+
+        shuffleButton.addEventListener(
+            "click",
+            shuffleQuestions
+        );
+
+
+        /* =========================================================
+           16. KHỞI TẠO
+        ========================================================= */
+
+        function initializePage() {
+            loadSettings();
+            renderQuestions();
+            updateReadingProgress();
+            updateQuizStatus();
+
+            /*
+             * MathJax có thể tải sau DOMContentLoaded.
+             * Gọi thêm một lần khi trang đã tải hoàn toàn.
+             */
+            window.addEventListener(
+                "load",
+                typesetMath
+            );
+        }
+
+        initializePage();
+    </script>
+</body>
+</html>
